@@ -1,0 +1,1 @@
+You have recevied a new message from <?php echo $display_name; ?> on www.babesforbitcoin.com
