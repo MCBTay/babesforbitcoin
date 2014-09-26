@@ -1,5 +1,5 @@
 
-				<div class="login-navigation">
+				<!--div class="login-navigation">
 					<a href="<?php echo base_url(); ?>account/faq">FAQ</a>
 					&nbsp;|&nbsp;
 					<a href="<?php echo base_url(); ?>account/preview">Preview</a>
@@ -9,7 +9,7 @@
 					<?php else: ?>
 						<a href="<?php echo base_url(); ?>account/login">Login</a>
 					<?php endif; ?>
-				</div>
+				</div-->
 				<div id="footer-login">
 					<a href="mailto:info@babesforbitcoin.com">Contact Us</a>
 					&nbsp;|&nbsp;
