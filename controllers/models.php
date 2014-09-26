@@ -30,10 +30,10 @@ class Models extends CI_Controller
 		}
 
 		// Models can't view other models
-		if ($this->_user->user_type == 2)
-		{
-			redirect();
-		}
+		//if ($this->_user->user_type == 2)
+		//{
+		//	redirect();
+		//}
 	}
 
 	/**
