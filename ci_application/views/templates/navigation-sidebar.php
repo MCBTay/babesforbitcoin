@@ -1,6 +1,13 @@
 
 			<h3 class="display-name"><?php echo $this->_user->display_name ? $this->_user->display_name : 'User # ' . $this->_user->user_id; ?></h3>
-			<a href="<?php echo base_url(); ?>upload/public"><img alt="<?php echo $this->_user->display_name; ?>" src="<?php echo isset($this->_user->default) ? CDN_URL . 'tall-' . strtolower($this->_user->default->filename) : base_url() . 'assets/img/no-photo.png'; ?>" width="385"></a>
+			<?php if ($this->uri->segment(1) == 'upload' && $this->uri->segment(2) == 'public'): ?>
+				<a href="<?php echo base_url(); ?>">
+			<?php else: ?>
+				<a href="<?php echo base_url(); ?>upload/public">
+			<?php endif; ?>
+			
+				<img alt="<?php echo $this->_user->display_name; ?>" src="<?php echo isset($this->_user->default) ? CDN_URL . 'tall-' . strtolower($this->_user->default->filename) : base_url() . 'assets/img/no-photo.png'; ?>" width="385">
+			</a>
 			<ul class="sidebar-navigation">
 				<?php if ($this->_user->user_type == 2): ?>
 					<li><a<?php echo $this->uri->segment(1) == 'account' && $this->uri->segment(2) == 'earnings' ? ' class="active"' : ''; ?> href="<?php echo base_url(); ?>account/earnings">My Earnings</a></li>
