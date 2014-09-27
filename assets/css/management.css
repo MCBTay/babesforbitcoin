@@ -1,0 +1,206 @@
+body {
+	padding-bottom: 30px;
+	padding-top: 70px;
+}
+
+.container-relative {
+	position: relative;
+}
+
+.navbar-search {
+	position: absolute;
+	right: 150px;
+	top: 8px;
+}
+
+.ui-autocomplete {
+	z-index: 9999;
+}
+
+.navbar-logout {
+	position: absolute;
+	right: 70px;
+	top: -14px;
+}
+
+@media (min-width: 768px) {
+	.navbar-search {
+		right: 80px;
+	}
+	.navbar-logout {
+		right: 0;
+	}
+}
+
+.page-header,
+.page-header h2 {
+	margin-top: 0;
+}
+
+/* TABLE LISTS */
+
+table.jtable th,
+table.jtable td {
+	padding: 2px 5px !important;
+}
+
+table.jtable a.old-approval {
+	color: #aaa;
+}
+
+table.table {
+	border-color: #333;
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+table.table th {
+	background: #333;
+	border: solid 1px #333;
+	color: #fff;
+	padding-right: 25px !important;
+	position: relative;
+}
+
+table.table th.sortable {
+	cursor: pointer;
+}
+
+table.table th .glyphicon {
+	position: absolute;
+	right: 8px;
+	top: 11px;
+}
+
+table.table > thead > tr > th {
+	border-bottom: solid 1px #333;
+	border-top: solid 1px #333;
+}
+
+table.table td {
+	border: solid 1px #ccc;
+	vertical-align: middle !important;
+}
+
+a .glyphicon {
+	color: #333;
+}
+
+.glyphicon-darkened {
+	color: #ccc;
+}
+
+/* FORMS */
+
+.form-error {
+	color: #a94442;
+	font-size: 12px;
+	font-style: italic;
+}
+
+.form-group .panel {
+	margin-bottom: 0;
+}
+
+#filter-form {
+	margin-bottom: 20px;
+}
+
+#dashboard .panel-body {
+	font-size: 12px;
+	height: 300px;
+	overflow: auto;
+}
+
+/* THUMBNAILS */
+
+.thumbnail-title {
+	margin-bottom: 5px;
+	margin-top: 0;
+}
+
+.thumbnail-details {
+	color: #999;
+	font-style: italic;
+}
+
+.thumbnail-cta {
+	margin-bottom: 0;
+}
+
+/* PANELS */
+
+.panel-body .form-group {
+	margin-bottom: 0;
+}
+
+.panel-footer p {
+	margin-bottom: 2px;
+}
+
+/* SORTABLE */
+
+#featured-order .well {
+	cursor: move;
+}
+
+#featured-order .well h4 {
+	margin: 0;
+}
+
+#featured-order .well .glyphicon {
+	color: #ccc;
+}
+
+#featured-order .well:hover .glyphicon {
+	color: #777;
+}
+
+#featured-order .well:active .glyphicon {
+	color: #222;
+}
+
+.placeholder {
+	border: solid 1px #222;
+	background-image: none;
+	-webkit-box-shadow: 0 0 10px #888;
+	-moz-box-shadow: 0 0 10px #888;
+	box-shadow: 0 0 10px #888;
+	height: 92px;
+}
+
+/* REUSABLE STYLES */
+
+.marginbottomlarge {
+	margin-bottom: 20px;
+}
+
+.margintopsmall {
+	margin-top: 10px;
+}
+
+.btn-file {
+	overflow: hidden;
+	position: relative;
+}
+
+.btn-file input[type=file] {
+	background: white;
+	cursor: inherit;
+	display: block;
+	font-size: 999px;
+	filter: alpha(opacity=0);
+	min-width: 100%;
+	min-height: 100%;
+	opacity: 0;
+	outline: none;
+	position: absolute;
+	right: 0;
+	text-align: right;
+	top: 0;
+}
+
+input.btn-file-fixer {
+	background-color: #fff !important;
+	cursor: text !important;
+}
