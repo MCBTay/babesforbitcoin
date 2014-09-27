@@ -11,7 +11,7 @@
 			<ul class="sidebar-navigation">
 				<?php if ($this->_user->user_type == 2): ?>
 					<li><a<?php echo $this->uri->segment(1) == 'account' && $this->uri->segment(2) == 'earnings' ? ' class="active"' : ''; ?> href="<?php echo base_url(); ?>account/earnings">My Earnings</a></li>
-					<li><a<?php echo $this->uri->segment(1) == 'account' && $this->uri->segment(2) == 'profile' ? ' class="active"' : ''; ?> href="<?php echo base_url(); ?>account/profile">Edit Profile</a></li>
+					<li><a<?php echo $this->uri->segment(1) == 'account' && $this->uri->segment(2) == 'profile' ? ' class="active"' : ''; ?> href="<?php echo base_url(); ?>account/profile">Edit | View Profile</a></li>
 					<li><a<?php echo $this->uri->segment(1) == 'upload' ? ' class="active"' : ''; ?> href="<?php echo base_url(); ?>upload">Upload Photos | Videos</a></li>
 					<li><a<?php echo $this->uri->segment(1) == 'manage-my-files' ? ' class="active"' : ''; ?> href="<?php echo base_url(); ?>manage-my-files">Manage My Files</a></li>
 					<?php /*
