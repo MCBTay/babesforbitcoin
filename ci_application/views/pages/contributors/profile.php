@@ -17,7 +17,7 @@
 		<div class="content-right content-right-large copy">
 			<div class="panel">
 				<div class="panel-title">
-					<h2>Profile</h2>
+					<h2>About Me</h2>
 				</div>
 				<div class="panel-body">
 					<div class="panel-box panel-box-borderless">
