@@ -592,6 +592,10 @@ p.legal {
 	width: 195px;
 }
 
+.form-long p { 
+
+}
+
 .input-group label.input-checkbox {
 	background-color: #f7f7f7;
 	font-size: 0.875em;
@@ -1360,36 +1364,33 @@ body.register {
    Model profile page styles
    ========================================================================== */
 
-#page-models-profile .model-stats {
-	padding-top: 15px;
-}
-
-#page-models-profile .model-stats dl {
-	font-size: 0.750em;
+#page-models-profile ul.model-stats {
 	margin: 0;
-	width: 210px;
+	padding: 0;
 }
 
-#page-models-profile .model-stats dt {
-	color: #009bea;
-	float: left;
+#page-models-profile ul.model-stats li {
+	font-size: 1.563em;
+	list-style: none;
 	margin: 0;
-	padding: 0 5px;
-	text-align: right;
-	width: 50px;
+	padding: 0;
+	position: relative;
 }
 
-#page-models-profile .model-stats dt a {
-	color: #009bea;
+#page-models-profile ul.model-stats li a {
+	background-color: #f7f7f7;
+	border-bottom: solid 2px #f0f0f0;
+	color: #c3c3c3;
+	display: block;
+	padding: 15px;
 }
 
-#page-models-profile .model-stats dd {
-	color: #999;
-	float: left;
-	margin: 0;
-	padding: 0 5px;
-	text-align: left;
-	width: 140px;
+#page-models-profile ul.model-stats li a:hover,
+#page-models-profile ul.model-stats li a.active {
+	background-color: #ff7676;
+	border-bottom: solid 2px #ff7676;
+	color: #fff;
+	text-decoration: none;
 }
 
 #page-models-profile .model-stats dd a {
