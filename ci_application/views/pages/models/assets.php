@@ -12,16 +12,11 @@
 				<div class="panel-photo-<?php echo $model->online ? 'online' : 'offline'; ?>"><?php echo $model->display_name; ?></div>
 			</div>
 			<div class="clearfix"></div>
-			<div class="model-stats">
-				<dl>
-					<dt><a href="<?php echo base_url(); ?>models/photosets/<?php echo $model->user_id; ?>"><?php echo $model->assets[3]; ?></a></dt>
-						<dd><a href="<?php echo base_url(); ?>models/photosets/<?php echo $model->user_id; ?>">Photosets</a></dd>
-					<dt><a href="<?php echo base_url(); ?>models/videos/<?php echo $model->user_id; ?>"><?php echo $model->assets[5]; ?></a></dt>
-						<dd><a href="<?php echo base_url(); ?>models/videos/<?php echo $model->user_id; ?>">Videos</a></dd>
-					<dt><a href="<?php echo base_url(); ?>my-files/model/<?php echo $model->user_id; ?>"><?php echo $owned; ?></a></dt>
-						<dd><a href="<?php echo base_url(); ?>my-files/model/<?php echo $model->user_id; ?>">Owned</a></dd>
-				</dl>
-			</div>
+			<ul class="model-stats">
+				<li><a href="<?php echo base_url(); ?>models/photosets/<?php echo $model->user_id; ?>"><?php echo $model->assets[3]; ?> Photosets</a></li>
+				<li><a href="<?php echo base_url(); ?>models/videos/<?php echo $model->user_id; ?>"><?php echo $model->assets[5]; ?> Videos</a></li>
+				<li><a href="<?php echo base_url(); ?>my-files/model/<?php echo $model->user_id; ?>"><?php echo $owned; ?> Owned</a></li>
+			</ul>
 			<div class="clearfix"></div>
 			<?php /*
 			<div class="model-buttons">
