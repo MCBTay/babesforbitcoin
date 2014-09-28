@@ -579,11 +579,23 @@ class Account extends CI_Controller
 			'user'     => $this->_user,
 		);
 
-		// Set validation error delimiters
-		$this->form_validation->set_error_delimiters('', '');
+        if ($this->input->post('view'))
+        {
+            $redirect = "";
+            $user_type = $this->_user->user_type;
+            $user_id = $this->_user->user_type;
 
-		// Set validation rules
-		$this->form_validation->set_rules('profile', 'Profile', 'trim|required|max_length[5000]|xss_clean');
+            if ($user_type == 1)      $redirect = "contributors/";
+            else if ($user_type == 2) $redirect = "models/";
+            $redirect .= "profile/".$user_id;
+            redirect($redirect);
+        }
+
+        // Set validation error delimiters
+        $this->form_validation->set_error_delimiters('', '');
+
+        // Set validation rules
+        $this->form_validation->set_rules('profile', 'Profile', 'trim|required|max_length[5000]|xss_clean');
 
 		// Run validation
 		if ($this->form_validation->run() == TRUE)
