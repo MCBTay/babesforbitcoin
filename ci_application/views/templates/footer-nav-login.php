@@ -1,15 +1,13 @@
 
-				<!--div class="login-navigation">
-					<a href="<?php echo base_url(); ?>account/faq">FAQ</a>
-					&nbsp;|&nbsp;
-					<a href="<?php echo base_url(); ?>account/preview">Preview</a>
-					&nbsp;|&nbsp;
-					<?php if ($this->uri->segment(2) == 'login'): ?>
-						<a class="highlight" href="<?php echo base_url(); ?>account/register">Sign Up</a>
-					<?php else: ?>
-						<a href="<?php echo base_url(); ?>account/login">Login</a>
-					<?php endif; ?>
-				</div-->
+                <?php if ($this->uri->segment(2) == 'preview'): ?>
+                    <div class="login-navigation">
+                        <a href="<?php echo base_url(); ?>account/login">Login</a>
+                        &nbsp;|&nbsp;
+                        <a href="<?php echo base_url(); ?>account/faq">FAQ</a>
+                        &nbsp;|&nbsp;
+                        <a class="highlight" href="<?php echo base_url(); ?>account/register">Sign Up</a>
+                    </div>
+                <?php endif; ?>
 				<div id="footer-login">
 					<a href="mailto:info@babesforbitcoin.com">Contact Us</a>
 					&nbsp;|&nbsp;
