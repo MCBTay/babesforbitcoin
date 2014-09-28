@@ -362,11 +362,17 @@ class Account extends CI_Controller
 	 */
 	public function preview()
 	{
-		// Data array to be used in views
-		$data = array(
-			'class' => 'login',
-			'title' => 'Preview',
-		);
+        // Data array to be used in views
+        $data = array(
+            'class' => 'login',
+            'title' => 'Preview',
+            'featured' => $this->models_model->get_featured(),
+            'models'   => $this->models_model->get_models()
+            //'fetishes' => $this->models_model->get_fetishes(),
+            //'type'     => (array) $this->input->post('type'),
+            //'tags'     => (array) $this->input->post('tags'),
+            //'sort'     => $this->input->post('sort'),
+        );
 
 		// Load views
 		$this->load->view('templates/header',           $data);
@@ -583,7 +589,7 @@ class Account extends CI_Controller
         {
             $redirect = "";
             $user_type = $this->_user->user_type;
-            $user_id = $this->_user->user_type;
+            $user_id = $this->_user->user_id;
 
             if ($user_type == 1)      $redirect = "contributors/";
             else if ($user_type == 2) $redirect = "models/";
