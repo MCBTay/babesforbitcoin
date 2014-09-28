@@ -30,7 +30,10 @@
 										<?php echo form_error('profile'); ?>
 									</div>
 								<?php endif; ?>
-								<p style="margin-top: 15px;"><input class="submit" id="save" name="save" type="submit" value="Save"></p>
+								<p style="margin-top: 15px;">
+                                    <input class="submit" id="view" name="view" type="submit" value="View">
+									<input class="submit" id="save" name="save" type="submit" value="Save">
+								</p>
 							</div>
 						</form>
 					</div>
