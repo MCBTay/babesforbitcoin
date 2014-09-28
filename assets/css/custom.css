@@ -885,6 +885,19 @@ h3.normal {
 	margin-bottom: 15px;
 }
 
+/* Preview page */
+#page-faq #preview-banner {
+    width: 100%;
+    background-color: #ff7676;
+}
+
+#page-faq #preview-banner p {
+    font-size: 1.563em;
+    color: white;
+    padding: 0;
+    position: relative;
+}
+
 .usd-wrapper,
 .btc-wrapper {
 	display: block;
