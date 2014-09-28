@@ -403,6 +403,28 @@ class Models_model extends CI_Model
 		return $assets;
 	}
 
+    /**
+     * Get mine public
+     *
+     * Get mine public photos from database
+     *
+     * @access public
+     * @return object
+     */
+    public function get_public($userID)
+    {
+        // Get public photos
+        $this->db->from('assets');
+        $this->db->where('user_id', $userID);
+        $this->db->where('asset_type', 1);
+        $this->db->where('deleted', 0);
+        $this->db->order_by('asset_id', 'desc');
+        $query  = $this->db->get();
+        $assets = $query->result();
+
+        return $assets;
+    }
+
 	/**
 	 * Get mine private
 	 *
