@@ -32,9 +32,7 @@
 	<div class="login-navigation">
                 <a href="<?php echo base_url(); ?>account/faq">FAQ</a>
                 &nbsp;|&nbsp;
-                <!--until the preview page is done, hook preview up to twitter-->
-                <!--a href="<?php echo base_url(); ?>account/preview">Preview</a-->
-                <a href="https://twitter.com/BabesForBitcoin/media" target="_blank">Preview</a>
+                <a href="<?php echo base_url(); ?>account/preview">Preview</a>
                 &nbsp;|&nbsp;
                 <?php if ($this->uri->segment(2) == 'login'): ?>
                         <a class="highlight" href="<?php echo base_url(); ?>account/register">Sign Up</a>
