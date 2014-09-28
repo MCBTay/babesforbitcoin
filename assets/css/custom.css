@@ -910,7 +910,7 @@ h3.normal {
 	margin-bottom: 15px;
 }
 
-/* Preview page */
+/* Preview index page */
 #page-login.page-preview {
     text-align: left;
 }
@@ -920,7 +920,9 @@ h3.normal {
 }
 
 #page-faq #preview-banner {
-    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    width: 98%;
     background-color: #ff7676;
     font-size: 1.563em;
     color: white;
@@ -938,7 +940,53 @@ h3.normal {
     margin-bottom: 0em;
 }
 
+#page-faq #preview-banner.about-me {
+    background-color: #009bea;
+    font-size: 1em;
+}
+
 #page-faq a.preview-banner-link:hover {
+    text-decoration: none;
+}
+
+/* Preview individual page */
+#page-faq .panel {
+    width: 98%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#page-faq .public-photos{
+    margin-left: auto;
+    margin-right: auto;
+    width: 98%;
+}
+
+#page-faq .public-photos .panel-photo{
+    padding-top: 1em;
+    padding-bottom: 1em;
+    margin-left: auto;
+    margin-right: auto;
+    width: 300px;
+}
+
+#page-faq a#backtomodels {
+    font-size: 1.563em;
+    background-color: #f7f7f7;
+    border-bottom: solid 2px #f0f0f0;
+    color: #c3c3c3;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    width: 98%;
+}
+
+#page-faq a#backtomodels:hover,
+#page-faq a#backtomodels.active {
+    background-color: #ff7676;
+    border-bottom: solid 2px #ff7676;
+    color: #fff;
     text-decoration: none;
 }
 
