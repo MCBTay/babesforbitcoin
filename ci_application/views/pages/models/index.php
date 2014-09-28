@@ -25,6 +25,7 @@
 						</div>
 					</div>
 				</div>
+				<?php if ($this->_user->user_type != 2) : ?>
 				<div class="panel">
 					<div class="panel-title">
 						<h2>Filters</h2>
@@ -87,6 +88,7 @@
 						</div>
 					</div>
 				</div>
+				<?php endif; ?>
 				<div class="panel-photo-online" style="margin-top: 15px;">*Online Now</div>
 			</form>
 		</div>
