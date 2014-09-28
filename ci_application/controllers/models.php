@@ -22,18 +22,15 @@ class Models extends CI_Controller
 		// Get currently logged in user
 		$this->_user = $this->user_model->get_user();
 
-		// If user isn't logged in
-		if (!$this->_user)
-		{
-			// Redirect to login
-			redirect('account/login');
-		}
-
-		// Models can't view other models
-		//if ($this->_user->user_type == 2)
-		//{
-		//	redirect();
-		//}
+        if ($this->uri->segment(2) != 'preview')
+        {
+            // If user isn't logged in
+            if (!$this->_user)
+            {
+                // Redirect to login
+                redirect('account/login');
+            }
+        }
 	}
 
 	/**
@@ -100,6 +97,40 @@ class Models extends CI_Controller
 		$this->load->view('templates/footer-nav', $data);
 		$this->load->view('templates/footer',     $data);
 	}
+
+    /**
+     * Models - Preview Profile
+     *
+     * The preview profile page for the models controller
+     *
+     * @access public
+     * @return n/a
+     */
+    public function preview($model_id)
+    {
+        // Get model profile information
+        $model = $this->models_model->get_model($model_id);
+
+        if (!$model)
+        {
+            // No model found :(
+            redirect();
+        }
+
+        // Data array to be used in views
+        $data = array(
+            'class' => 'models',
+            'title' => ($model->display_name ? $model->display_name : 'User # ' . $model->user_id) . "'s Profile",
+            'model' => $model,
+            'public' => $this->models_model->get_public($model->user_id)
+        );
+
+        // Load views
+        $this->load->view('templates/header',           $data);
+        $this->load->view('pages/models/preview',      $data);
+        $this->load->view('templates/footer-nav-login', $data);
+        $this->load->view('templates/footer',           $data);
+    }
 
 	/**
 	 * Models - Assets
