@@ -911,12 +911,21 @@ h3.normal {
 }
 
 /* Preview page */
+#page-login.page-preview {
+    text-align: left;
+}
+
+#page-login.page-preview .logo-large {
+    text-align: center;
+}
+
 #page-faq #preview-banner {
     width: 100%;
     background-color: #ff7676;
     font-size: 1.563em;
     color: white;
     padding: 0;
+    text-align: center;
 }
 
 #page-faq #preview-banner.top {
@@ -927,6 +936,10 @@ h3.normal {
 #page-faq #preview-banner.bottom {
     margin-top: 0.5em;
     margin-bottom: 0em;
+}
+
+#page-faq a.preview-banner-link:hover {
+    text-decoration: none;
 }
 
 .usd-wrapper,
