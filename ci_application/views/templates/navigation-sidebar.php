@@ -20,7 +20,7 @@
 				<?php endif; ?>
 				<?php if ($this->_user->user_type == 1): ?>
 					<li><a<?php echo $this->uri->segment(1) == 'account' && $this->uri->segment(2) == 'add-funds' ? ' class="active"' : ''; ?> href="<?php echo base_url(); ?>account/add-funds">Add Funds</a></li>
-					<li><a<?php echo $this->uri->segment(1) == 'account' && $this->uri->segment(2) == 'profile' ? ' class="active"' : ''; ?> href="<?php echo base_url(); ?>account/profile">Edit Profile</a></li>
+					<li><a<?php echo $this->uri->segment(1) == 'account' && $this->uri->segment(2) == 'profile' ? ' class="active"' : ''; ?> href="<?php echo base_url(); ?>account/profile">Edit | View Profile</a></li>
 					<?php /*
 					<li class="side-nav-upgrade"><a<?php echo $this->uri->segment(1) == 'account' && $this->uri->segment(2) == 'upgrade' ? ' class="active"' : ''; ?> href="<?php echo base_url(); ?>account/upgrade">Upgrade<span class="icon"></span></a></li>
 					*/ ?>
