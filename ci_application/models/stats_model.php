@@ -66,6 +66,7 @@ class Stats_model extends CI_Model
 	{
 		$this->db->from('users');
 		$this->db->where('user_type', 2);
+        $this->db->where('user_approved', 1);
 		$count = $this->db->count_all_results();
 
 		return number_format($count);
