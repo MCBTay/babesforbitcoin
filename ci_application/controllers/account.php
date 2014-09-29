@@ -367,7 +367,7 @@ class Account extends CI_Controller
             'class' => 'login',
             'title' => 'Preview',
             'featured' => $this->models_model->get_featured(),
-            'models'   => $this->models_model->get_models()
+            'models'   => $this->models_model->get_models(25)
             //'fetishes' => $this->models_model->get_fetishes(),
             //'type'     => (array) $this->input->post('type'),
             //'tags'     => (array) $this->input->post('tags'),

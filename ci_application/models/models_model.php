@@ -77,6 +77,82 @@ class Models_model extends CI_Model
 		return $models;
 	}
 
+    /**
+     * Get models
+     *
+     * Get models from database and specify the number of models
+     *
+     * @access public
+     * @return object
+     */
+    public function get_models_limit($limit)
+    {
+        // Array of models to return
+        $models = array();
+
+        $filter_type = $this->input->post('type');
+        $filter_tags = $this->input->post('tags');
+        $sort        = $this->input->post('sort');
+
+        $this->db->select('assets.user_id');
+        $this->db->from('assets');
+        $this->db->join('users', 'users.user_id = assets.user_id');
+        if (!empty($filter_type) && is_array($filter_type))
+        {
+            $this->db->where_in('assets.asset_type', $filter_type);
+        }
+        if (!empty($filter_tags) && is_array($filter_tags))
+        {
+            $this->db->join('assets_tags', 'assets_tags.asset_id = assets.asset_id');
+            $this->db->where_in('assets_tags.tag_id', $filter_tags);
+        }
+        $this->db->where('users.featured', 0);
+        $this->db->where('users.user_type', 2);
+        $this->db->where('users.disabled', 0);
+        $this->db->where('users.user_approved', 1);
+        $this->db->where('assets.deleted', 0);
+        $this->db->where('(`assets`.`approved` = 1 OR `users`.`trusted` = 1)', NULL, FALSE);
+        if ($sort == 'last_login')
+        {
+            $this->db->order_by('users.last_login', 'desc');
+        }
+        elseif ($sort == 'name_asc')
+        {
+            $this->db->order_by('users.display_name', 'asc');
+        }
+        elseif ($sort == 'name_desc')
+        {
+            $this->db->order_by('users.display_name', 'desc');
+        }
+        else
+        {
+            $this->db->order_by('assets.asset_id', 'desc');
+        }
+        $this->db->limit($limit);
+        $query  = $this->db->get();
+        $result = $query->result();
+        $done   = array();
+
+        foreach ($result as $row)
+        {
+            if (!in_array($row->user_id, $done))
+            {
+                // Add to done array to remove duplicates
+                $done[] = $row->user_id;
+
+                // Get model information
+                $model = $this->get_model($row->user_id);
+
+                if ($model)
+                {
+                    $models[] = $model;
+                }
+            }
+        }
+
+        return $models;
+    }
+
 	/**
 	 * Get models
 	 *
@@ -433,7 +509,7 @@ class Models_model extends CI_Model
      * @access public
      * @return object
      */
-    public function get_public_number($userID, $number)
+    public function get_public_limit($userID, $limit)
     {
         // Get public photos
         $this->db->from('assets');
@@ -441,7 +517,7 @@ class Models_model extends CI_Model
         $this->db->where('asset_type', 1);
         $this->db->where('deleted', 0);
         $this->db->order_by('asset_id', 'desc');
-        $this->db->limit($number);
+        $this->db->limit($limit);
         $query  = $this->db->get();
         $assets = $query->result();
 

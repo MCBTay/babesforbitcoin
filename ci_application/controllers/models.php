@@ -122,7 +122,7 @@ class Models extends CI_Controller
             'class' => 'models',
             'title' => ($model->display_name ? $model->display_name : 'User # ' . $model->user_id) . "'s Profile",
             'model' => $model,
-            'public' => $this->models_model->get_public_number($model->user_id, 6)
+            'public' => $this->models_model->get_public_limit($model->user_id, 6)
         );
 
         // Load views
