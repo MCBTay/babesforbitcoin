@@ -11,9 +11,10 @@
         <a class="preview-banner-link" style="display:block;" href="<?php echo base_url(); ?>account/register">
             <div id="preview-banner" class="bottom">Sign up to see more of <?php echo $model->display_name; ?></div>
         </a>
-        <div class="public-photos">
+        <div class="content-center content-center-large public-photos">
+            <?php $counter = 1; ?>
             <?php foreach ($public as $key => $asset): ?>
-                <div class="panel-photo">
+                <div class="panel-photo <?php if ($counter % 3 == 1) echo 'first'; ?>">
                     <a class="fancybox" rel="public" href="<?php echo base_url(); ?>account/register">
                         <div class="watermark-wrap">
                             <img alt="<?php echo $asset->asset_title; ?>" src="<?php echo !empty($asset->filename) ? CDN_URL . 'sml-' . strtolower($asset->filename) : base_url() . 'assets/img/no-photo.png'; ?>">
@@ -23,13 +24,14 @@
                         </div>
                     </a>
                 </div>
+                <?php $counter++; ?>
             <?php endforeach; ?>
             <?php if (!$public): ?>
                 <p>No public photos found.</p>
             <?php endif; ?>
         </div>
         <div class="clearfix"></div>
-        <div class="panel">
+        <div class="panel about-me">
             <div class="panel-title">
                 <h2>About Me</h2>
             </div>

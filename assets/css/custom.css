@@ -956,22 +956,19 @@ h3.normal {
 }
 
 #page-faq .public-photos{
-    margin-left: auto;
-    margin-right: auto;
-    width: 98%;
+    margin-top: 0.5em;
 }
 
-#page-faq #preview-banner.about-me {
-    background-color: #009bea;
-    font-size: 1em;
+#page-faq .public-photos .panel-photo {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-left: 40px;
+    padding-right: 0px;
+    width: auto;
 }
 
-#page-faq .public-photos .panel-photo{
-    padding-top: 1em;
-    padding-bottom: 1em;
-    margin-left: auto;
-    margin-right: auto;
-    width: 300px;
+#page-login.page-preview #page-faq .panel.about-me {
+    margin-top: 0.5em;
 }
 
 #page-faq a#backtomodels {
@@ -982,6 +979,7 @@ h3.normal {
     display: block;
     margin-left: auto;
     margin-right: auto;
+    margin-top: 0.5em;
     text-align: center;
     width: 98%;
 }
