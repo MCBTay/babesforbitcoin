@@ -279,18 +279,6 @@ p.legal {
 	width: 170px;
 }
 
-#page-faq .content-center .panel-photo {
-    padding-top: 8px;
-    padding-bottom: 8px;
-    padding-left: 37px;
-    padding-right: 0px;
-    width: 170px;
-}
-
-#page-faq .content-center .panel-photo.first {
-    padding-left: 0px;
-}
-
 #page-upload .panel-photo {
 	padding: 0 0 16px 13px;
 	width: 170px;
@@ -919,6 +907,22 @@ h3.normal {
     text-align: center;
 }
 
+#page-faq .content-center {
+    width: 98%;
+}
+
+#page-faq .content-center .panel-photo {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-left: 32px;
+    padding-right: 0px;
+    width: 170px;
+}
+
+#page-faq .content-center .panel-photo.first {
+    padding-left: 0px;
+}
+
 #page-faq #preview-banner {
     margin-left: auto;
     margin-right: auto;
@@ -940,11 +944,6 @@ h3.normal {
     margin-bottom: 0em;
 }
 
-#page-faq #preview-banner.about-me {
-    background-color: #009bea;
-    font-size: 1em;
-}
-
 #page-faq a.preview-banner-link:hover {
     text-decoration: none;
 }
@@ -960,6 +959,11 @@ h3.normal {
     margin-left: auto;
     margin-right: auto;
     width: 98%;
+}
+
+#page-faq #preview-banner.about-me {
+    background-color: #009bea;
+    font-size: 1em;
 }
 
 #page-faq .public-photos .panel-photo{
