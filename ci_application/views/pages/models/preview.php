@@ -2,7 +2,11 @@
 <div id="page-login" class="page-preview">
     <div id="page-faq">
         <div class="logo-large">
-            <h1><img alt="Babes for Bitcoin" src="<?php echo base_url(); ?>assets/img/babes-for-bitcoin-logo-tagline-large.png"></h1>
+            <h1>
+                <a href="<?php echo base_url(); ?>account/login">
+                    <img alt="Babes for Bitcoin" src="<?php echo base_url(); ?>assets/img/babes-for-bitcoin-logo-tagline-large.png">
+                </a>
+            </h1>
         </div>
         <a class="preview-banner-link" style="display:block;" href="<?php echo base_url(); ?>account/register">
             <div id="preview-banner" class="bottom">Sign up to see more of <?php echo $model->display_name; ?></div>
