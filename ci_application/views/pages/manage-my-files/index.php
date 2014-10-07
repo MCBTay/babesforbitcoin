@@ -100,6 +100,7 @@
 									<?php endif; ?>
 									<a class="button" href="<?php echo base_url(); ?>upload/photoset/<?php echo $asset->asset_id; ?>">Rename Set</a>
 									<a class="button" href="<?php echo base_url(); ?>upload/photoset/<?php echo $asset->asset_id; ?>">Add to Set</a>
+                                    <a class="button" href="<?php echo base_url(); ?>upload/photoset/<?php echo $asset->asset_id; ?>">Change Cover Photo</a>
 									<a class="button" href="<?php echo base_url(); ?>upload/photoset/<?php echo $asset->asset_id; ?>">Change Price</a>
 								</div>
 							<?php endif; ?>

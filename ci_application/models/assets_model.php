@@ -456,7 +456,6 @@ class Assets_model extends CI_Model
 
 		return $row;
 	}
-
 }
 
 /* End of file assets_model.php */

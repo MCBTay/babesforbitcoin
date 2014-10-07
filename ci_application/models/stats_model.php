@@ -297,7 +297,7 @@ class Stats_model extends CI_Model
 		$this->db->join('users', 'users.user_id = users_purchases.user_id');
 		if ($user_id)
 		{
-			$this->db->where('users.user_id', $user_id);
+            $this->db->where('users.user_id', $user_id);
 		}
 		$this->db->order_by('users_purchases.purchase_created', 'desc');
 		$query  = $this->db->get();
@@ -306,7 +306,62 @@ class Stats_model extends CI_Model
 		return $result;
 	}
 
-	/**
+    /**
+     * Get Sales
+     *
+     * Get sales of a particular user
+     *
+     * @access public
+     * @return n/a
+     */
+    public function get_sales($user_id, $limit)
+    {
+        $this->db->from('users_purchases');
+        $this->db->join('users', 'users.user_id = users_purchases.user_id');
+
+        if ($user_id)
+        {
+            $this->db->join('assets', 'assets.asset_id = users_purchases.asset_id');
+            $this->db->where('assets.user_id', $user_id);
+        }
+
+        if ($limit)
+        {
+            $this->db->limit($limit);
+        }
+
+        $this->db->order_by('users_purchases.purchase_created', 'desc');
+        $query  = $this->db->get();
+        $result = $query->result();
+
+        return $result;
+    }
+
+    /**
+     * Get Purchases count
+     *
+     * Get number of purchases from the database
+     *
+     * @access public
+     * @return n/a
+     */
+    public function get_purchases_count($user_id = 0)
+    {
+        $this->db->from('users_purchases');
+        $this->db->join('users', 'users.user_id = users_purchases.user_id');
+        if ($user_id)
+        {
+            $this->db->where('users.user_id', $user_id);
+        }
+        $this->db->order_by('users_purchases.purchase_created', 'desc');
+        $query  = $this->db->get();
+        $result = $query->result();
+
+        return sizeof($result);
+    }
+
+
+    /**
 	 * Get Withdrawals
 	 *
 	 * Get withdrawals from the database ordered newest first

@@ -50,6 +50,11 @@ class Account extends CI_Controller
 			// Redirect to login
 			redirect('account/login');
 		}
+
+        $this->load->library("pagination");
+
+        $this->load->model('stats_model');
+        $this->load->model('assets_model');
 	}
 
 	/**
@@ -992,7 +997,10 @@ class Account extends CI_Controller
 			'title'    => 'My Earnings',
 			'user'     => $this->_user,
 			'rate'     => $this->cart_model->btc_to_usd(1),
+            'sales'   => $this->stats_model->get_sales($this->_user->user_id, 5)
 		);
+
+        $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
 
 		// Set validation error delimiters
 		$this->form_validation->set_error_delimiters('', '');
@@ -1272,6 +1280,31 @@ class Account extends CI_Controller
 			return FALSE;
 		}
 	}
+
+    /**
+     * Account - Transactions History
+     *
+     * The preview page for the account controller
+     *
+     * @access public
+     * @return n/a
+     */
+    public function transactions()
+    {
+        // Data array to be used in views
+        $data = array(
+            'class' => 'earnings',
+            'title' => 'Transactions',
+            'sales'   => $this->stats_model->get_sales($this->_user->user_id)
+        );
+
+        // Load views
+        $this->load->view('templates/header',       $data);
+        $this->load->view('templates/navigation',   $data);
+        $this->load->view('pages/account/transactions', $data);
+        $this->load->view('templates/footer-nav',       $data);
+        $this->load->view('templates/footer',           $data);
+    }
 
 }
 

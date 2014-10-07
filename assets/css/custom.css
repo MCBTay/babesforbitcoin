@@ -903,7 +903,8 @@ h3.normal {
     text-align: left;
 }
 
-#page-login.page-preview .logo-large {
+#page-login.page-preview .logo-large,
+#page-transactions .logo-large {
     text-align: center;
 }
 
@@ -945,6 +946,54 @@ h3.normal {
 }
 
 #page-faq a.preview-banner-link:hover {
+    text-decoration: none;
+}
+
+#page-login.page-preview #popup
+{
+    position:absolute;
+    display:none;
+    top:200px;
+    left:50%;
+    width:500px;
+    margin-left:-250px;
+    border:1px solid grey;
+    padding:20px;
+    background-color:white;
+}
+
+#page-login.page-preview #popup p
+{
+    font-size: 11px;
+}
+
+#page-login.page-preview #popup a#accept {
+    font-size: 1.563em;
+    background-color: #f7f7f7;
+    border-bottom: solid 2px #f0f0f0;
+    color: #c3c3c3;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0.5em;
+    text-align: center;
+    width: 98%;
+    cursor: pointer;
+}
+
+#page-login.page-preview #popup a#decline {
+    color: #c3c3c3;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0.5em;
+    text-align: center;
+}
+
+#page-login.page-preview #popup a#accept:hover,
+#page-login.page-preview #popup a#accept.active {
+    background-color: #ff7676;
+    border-bottom: solid 2px #ff7676;
+    color: #fff;
     text-decoration: none;
 }
 
@@ -1632,25 +1681,30 @@ body.register {
 
 
 /* earnings page -- transaction history table */
-#page-my-earnings table a:link {
+#page-my-earnings table a:link,
+#page-transactions table a:link {
     color: #666;
     font-weight: bold;
     text-decoration:none;
 }
 
-#page-my-earnings table a:visited {
+#page-my-earnings table a:visited,
+#page-transactions table a:visited {
     color: #999999;
     font-weight:bold;
     text-decoration:none;
 }
 
 #page-my-earnings table a:active,
-#page-my-earnings table a:hover {
+#page-my-earnings table a:hover,
+#page-transactions table a:active,
+#page-transactions table a:hover {
     color: #bd5a35;
     text-decoration:underline;
 }
 
-#page-my-earnings table {
+#page-my-earnings table,
+#page-transactions table {
     font-family:Arial, Helvetica, sans-serif;
     color:#666;
     font-size:14px;
@@ -1658,7 +1712,7 @@ body.register {
     background:#eaebec;
     margin-left: auto;
     margin-right: auto;
-    width: 98%;
+    width: 100%;
     border:#ccc 1px solid;
     border-collapse: separate;
 
@@ -1671,7 +1725,8 @@ body.register {
     box-shadow: 0 1px 2px #d1d1d1;
 }
 
-#page-my-earnings table th {
+#page-my-earnings table th,
+#page-transactions table th {
     padding:15px 15px;
     border-top:1px solid #fafafa;
     border-bottom:1px solid #e0e0e0;
@@ -1681,35 +1736,34 @@ body.register {
     background: -moz-linear-gradient(top,  #ededed,  #ebebeb);
 }
 
-#page-my-earnings table th:first-child {
+#page-my-earnings table th:first-child,
+#page-transactions table th:first-child {
     text-align: left;
     padding-left:20px;
 }
 
-#page-my-earnings table tr:first-child th:first-child {
+#page-my-earnings table tr:first-child th:first-child,
+#page-transactions table tr:first-child th:first-child {
     -moz-border-radius-topleft:3px;
     -webkit-border-top-left-radius:3px;
     border-top-left-radius:3px;
 }
 
-#page-my-earnings table tr:first-child th:last-child {
+#page-my-earnings table tr:first-child th:last-child,
+#page-transactions table tr:first-child th:last-child {
     -moz-border-radius-topright:3px;
     -webkit-border-top-right-radius:3px;
     border-top-right-radius:3px;
 }
 
-#page-my-earnings table tr {
+#page-my-earnings table tr,
+#page-transactions table tr {
     text-align: center;
     padding-left:20px;
 }
 
-#page-my-earnings table td:first-child {
-    text-align: left;
-    padding-left:20px;
-    border-left: 0;
-}
-
-#page-my-earnings table td {
+#page-my-earnings table td,
+#page-transactions table td {
     border-top: 1px solid #ffffff;
     border-bottom:1px solid #e0e0e0;
     border-left: 1px solid #e0e0e0;
@@ -1719,30 +1773,61 @@ body.register {
     background: -moz-linear-gradient(top,  #fbfbfb,  #fafafa);
 }
 
-#page-my-earnings table tr.even td {
+#page-my-earnings table tr.even td
+#page-transactions table tr.even td {
     background: #f6f6f6;
     background: -webkit-gradient(linear, left top, left bottom, from(#f8f8f8), to(#f6f6f6));
     background: -moz-linear-gradient(top,  #f8f8f8,  #f6f6f6);
 }
 
-#page-my-earnings table tr:last-child td {
+#page-my-earnings table tr:last-child td,
+#page-transactions table tr:last-child td {
     border-bottom:0;
 }
 
-#page-my-earnings table tr:last-child td:first-child {
+#page-my-earnings table tr:last-child td:first-child,
+#page-transactions table tr:last-child td:first-child {
     -moz-border-radius-bottomleft:3px;
     -webkit-border-bottom-left-radius:3px;
     border-bottom-left-radius:3px;
 }
 
-#page-my-earnings table tr:last-child td:last-child {
+#page-my-earnings table tr:last-child td:last-child,
+#page-transactions table tr:last-child td:last-child {
     -moz-border-radius-bottomright:3px;
     -webkit-border-bottom-right-radius:3px;
     border-bottom-right-radius:3px;
 }
 
-#page-my-earnings table tr.odd td {
+#page-my-earnings table tr.odd td,
+#page-transactions table tr.odd td{
     background: #f2f2f2;
     background: -webkit-gradient(linear, left top, left bottom, from(#f2f2f2), to(#f0f0f0));
     background: -moz-linear-gradient(top,  #f2f2f2,  #f0f0f0);
+}
+
+#page-my-earnings a#viewalltrans {
+    font-size: 1.563em;
+    background-color: #f7f7f7;
+    border-bottom: solid 2px #f0f0f0;
+    color: #c3c3c3;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0.5em;
+    text-align: center;
+    width: 98%;
+}
+
+#page-my-earnings a#viewalltrans:hover,
+#page-my-earnings a#viewalltrans.active {
+    background-color: #ff7676;
+    border-bottom: solid 2px #ff7676;
+    color: #fff;
+    text-decoration: none;
+}
+
+/* Tran history page */
+#page-transactions .panel {
+    width: 100%;
 }
