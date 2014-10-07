@@ -57,10 +57,11 @@
 									<label for="photoset_photo">Photoset Photos:</label>
 									<div class="upload-preview-static2" style="margin-top: 5px;">
 										<?php if (isset($asset) && isset($asset->photos)): ?>
+                                            <?php $counter = 1; ?>
 											<?php foreach ($asset->photos as $photo): ?>
-												<p style="margin-bottom: 15px; margin-top: 0;">
-													<img src="<?php echo CDN_URL . $photo->filename; ?>" width="536">
-												</p>
+												<img src="<?php echo CDN_URL . $photo->filename; ?>" width="536" class="<?php if ($counter == 1) echo 'first'; ?>">
+                                                <a class="button" href="">Make Cover Photo</a>
+                                                <?php $counter ++; ?>
 											<?php endforeach; ?>
 										<?php endif; ?>
 										<?php echo isset($photoset_photos) ? $photoset_photos : ''; ?>
