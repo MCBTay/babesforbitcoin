@@ -98,10 +98,7 @@
 									<?php if (empty($asset->filename)): ?>
 										<a class="button" href="<?php echo base_url(); ?>upload/photoset/<?php echo $asset->asset_id; ?>">Add Cover Photo</a>
 									<?php endif; ?>
-									<a class="button" href="<?php echo base_url(); ?>upload/photoset/<?php echo $asset->asset_id; ?>">Rename Set</a>
-									<a class="button" href="<?php echo base_url(); ?>upload/photoset/<?php echo $asset->asset_id; ?>">Add to Set</a>
-                                    <a class="button" href="<?php echo base_url(); ?>upload/photoset/<?php echo $asset->asset_id; ?>">Change Cover Photo</a>
-									<a class="button" href="<?php echo base_url(); ?>upload/photoset/<?php echo $asset->asset_id; ?>">Change Price</a>
+									<a class="button" href="<?php echo base_url(); ?>upload/photoset/<?php echo $asset->asset_id; ?>">Edit Set</a>
 								</div>
 							<?php endif; ?>
 							<div class="panel-photo">
