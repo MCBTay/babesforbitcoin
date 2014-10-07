@@ -68,7 +68,7 @@
 									</div>
 									<div class="upload-progress"><div class="progress-bar2"></div></div>
 									<div class="button-file-static">
-										<span>Upload Another</span>
+										<span>Upload New Photo</span>
 										<input class="asset-upload-photoset-photo" id="photoset_photo" multiple name="photoset_photo[]" type="file">
 									</div>
 									<?php if (form_error('child_uploaded_photo[]') != ''): ?>
