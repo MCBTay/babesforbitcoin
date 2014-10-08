@@ -27,6 +27,7 @@ CREATE TABLE `assets` (
   `user_id` int(11) unsigned NOT NULL DEFAULT '0',
   `asset_type` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `photoset_id` int(11) unsigned NOT NULL DEFAULT '0',
+  `is_cover_photo` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `asset_cost` decimal(6,2) unsigned NOT NULL DEFAULT '0.00',
   `asset_title` varchar(20) NOT NULL DEFAULT '',
   `filename` varchar(250) NOT NULL DEFAULT '',
@@ -397,4 +398,4 @@ CREATE TABLE `users_withdrawals` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-10-07 20:00:37
+-- Dump completed on 2014-10-07 20:09:55
