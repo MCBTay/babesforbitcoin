@@ -211,7 +211,7 @@ class Upload extends CI_Controller
 		$this->form_validation->set_rules('asset_cost',             'Photoset Cost',   'trim|required|callback_is_monetary|xss_clean');
 		if (!$asset_id)
 		{
-			$this->form_validation->set_rules('child_uploaded_photo[]', 'Photoset Photos', 'trim|required|callback_minimum_photos|xss_clean');
+			$this->form_validation->set_rules('child_uploaded_photo[]', 'Photoset Photos', 'trim|required|xss_clean');
 		}
 
 		if ($this->form_validation->run() == TRUE)
