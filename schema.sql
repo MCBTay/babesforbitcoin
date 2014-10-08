@@ -1,6 +1,5 @@
 -- MySQL dump 10.13  Distrib 5.6.19, for debian-linux-gnu (x86_64)
 --
--- Host: bfb-prod-db.crfteigz1fo2.us-east-1.rds.amazonaws.com    Database: babesforbitcoin_com_www
 -- ------------------------------------------------------
 -- Server version	5.6.17-log
 
