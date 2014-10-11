@@ -238,9 +238,8 @@ class Upload extends CI_Controller
             } else {
                 // Add assets to the database
                 $this->assets_model->insert_photoset($asset_id);
-
                 // Redirect with success message
-                redirect('upload/success');
+                redirect('upload/photoset/'. $asset_id);
             }
 
 		}
@@ -250,7 +249,6 @@ class Upload extends CI_Controller
 			if (count($_POST))
 			{
                 // Get POSTed values
-
                 $asset_title    = $this->input->post('asset_title');
                 //$uploaded_photo = $this->input->post('uploaded_photo');
                 // Make sure they actually uploaded a cover photo

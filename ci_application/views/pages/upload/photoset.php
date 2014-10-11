@@ -11,7 +11,8 @@
 				</div>
 				<div class="panel-body">
 					<div class="panel-box panel-box-borderless">
-						<?php if (validation_errors() != ''): ?>
+                        <?php $errors = validation_errors(); ?>
+						<?php if ($errors != ''): ?>
 							<div class="alert alert-danger">
 								<strong>Warning:</strong> Please fix any errors noted below.
 							</div>
