@@ -559,7 +559,9 @@ class Models_model extends CI_Model
 		// Get photosets
 		$this->db->from('assets');
 		$this->db->where('user_id', $this->_user->user_id);
-		$this->db->where('asset_type', 3);
+        $where_asset_type = "(asset_type = 3 OR asset_type = 4)";
+        $this->db->where($where_asset_type);
+        $this->db->where('is_cover_photo', 1);
 		$this->db->where('deleted', 0);
 		$this->db->order_by('asset_id', 'desc');
 		$query  = $this->db->get();
@@ -1036,6 +1038,26 @@ class Models_model extends CI_Model
 		return TRUE;
 	}
 
+    /*
+     * Change Cover Photo
+     *
+     * Change cover photo for a particular photo set.
+     */
+    public function change_cover_photo($photoset_id, $new_cover_id)
+    {
+        //change existing cover photo to no longer be cover
+        $this->db->set('is_cover_photo', 0);
+        $this->db->where('photoset_id', $photoset_id);
+        $this->db->where('is_cover_photo', 1);
+        $this->db->update('assets');
+
+        //change new asset to be the cover photo
+        $this->db->set('is_cover_photo', 1);
+        $this->db->where('photoset_id', $photoset_id);
+        $this->db->where('asset_id', $new_cover_id);
+        $this->db->where('is_cover_photo', 0);
+        $this->db->update('assets');
+    }
 }
 
 /* End of file models_model.php */
