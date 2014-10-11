@@ -215,6 +215,18 @@ class Upload extends CI_Controller
             {
                 $new_cover_id = $this->input->post('change_cover_photo');
 
+                if ($new_cover_id)
+                {
+                    // Add asset to the database
+                    $data = array(
+                        'asset_cost'    => $this->input->post('asset_cost'),
+                        'asset_title'   => $this->input->post('photoset_title'),
+                    );
+
+                    $this->db->where('photoset_id', $new_cover_id);
+                    $this->db->update('assets', $data);
+                }
+
                 //only one button should be pressed at once, but just as a safety check confirm
                 if (count($new_cover_id) == 1)
                 {

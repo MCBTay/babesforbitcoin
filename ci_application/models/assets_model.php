@@ -148,6 +148,8 @@ class Assets_model extends CI_Model
 			$photoset_title = 'Set of ' . count($child_uploaded_photo) . ' photos';
 		}
 
+
+
 /*		// Uploaded photo
 		$uploaded_photo = $this->input->post('uploaded_photo');
 
@@ -208,6 +210,18 @@ class Assets_model extends CI_Model
 			$this->aws_model->move_file('./assets/uploads/', 'sml-'  . strtolower($uploaded_photo));
 			$this->aws_model->move_file('./assets/uploads/', 'tall-' . strtolower($uploaded_photo));
 		}*/
+
+        if ($photoset_id)
+        {
+            // Add asset to the database
+            $data = array(
+                'asset_cost'    => $this->input->post('asset_cost'),
+                'asset_title'   => $photoset_title,
+            );
+
+            $this->db->where('photoset_id', $photoset_id);
+            $this->db->update('assets', $data);
+        }
 
         $uploaded_photos_ids = array();
 		foreach ($child_uploaded_photo as $key => $child_photo)
