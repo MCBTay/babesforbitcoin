@@ -148,7 +148,7 @@ class Assets_model extends CI_Model
 			$photoset_title = 'Set of ' . count($child_uploaded_photo) . ' photos';
 		}
 
-		// Uploaded photo
+/*		// Uploaded photo
 		$uploaded_photo = $this->input->post('uploaded_photo');
 
 		// Get image width, height
@@ -207,8 +207,9 @@ class Assets_model extends CI_Model
 			$this->aws_model->move_file('./assets/uploads/', 'med-'  . strtolower($uploaded_photo));
 			$this->aws_model->move_file('./assets/uploads/', 'sml-'  . strtolower($uploaded_photo));
 			$this->aws_model->move_file('./assets/uploads/', 'tall-' . strtolower($uploaded_photo));
-		}
+		}*/
 
+        $uploaded_photos_ids = array();
 		foreach ($child_uploaded_photo as $key => $child_photo)
 		{
 			if (!empty($child_photo))
@@ -241,6 +242,8 @@ class Assets_model extends CI_Model
 				);
 				$this->db->insert('assets', $data);
 
+                array_push($uploaded_photos_ids, $this->db->insert_id());
+
 				// Move to AWS CDN
 				$this->aws_model->move_file('./assets/uploads/', $child_photo);
 				$this->aws_model->move_file('./assets/uploads/', 'lrg-'  . strtolower($child_photo));
@@ -249,6 +252,22 @@ class Assets_model extends CI_Model
 				$this->aws_model->move_file('./assets/uploads/', 'tall-' . strtolower($child_photo));
 			}
 		}
+
+        //loop over list of collected IDs in order to set the photoset ID of them, as well as set the first as the default cover photo
+        foreach ($uploaded_photos_ids as $index => $id)
+        {
+            $is_cover_photo = 0;
+
+            if ($index == 0) {
+                $photoset_id = $id;
+                $is_cover_photo = 1;
+            }
+
+            $this->db->set('photoset_id', $photoset_id);
+            $this->db->set('is_cover_photo', $is_cover_photo);
+            $this->db->where('asset_id', $id);
+            $this->db->update('assets');
+        }
 	}
 
 	/**
@@ -296,15 +315,13 @@ class Assets_model extends CI_Model
 			{
 				$uploaded_photo = $uploaded_thumb;
 			}
-			else
-			{
-				// Move to AWS CDN
-				$this->aws_model->move_file('./assets/uploads/', $uploaded_photo);
-				$this->aws_model->move_file('./assets/uploads/', 'lrg-'  . strtolower($uploaded_photo));
-				$this->aws_model->move_file('./assets/uploads/', 'med-'  . strtolower($uploaded_photo));
-				$this->aws_model->move_file('./assets/uploads/', 'sml-'  . strtolower($uploaded_photo));
-				$this->aws_model->move_file('./assets/uploads/', 'tall-' . strtolower($uploaded_photo));
-			}
+
+            // Move to AWS CDN
+            $this->aws_model->move_file('./assets/uploads/', $uploaded_photo);
+            $this->aws_model->move_file('./assets/uploads/', 'lrg-'  . strtolower($uploaded_photo));
+            $this->aws_model->move_file('./assets/uploads/', 'med-'  . strtolower($uploaded_photo));
+            $this->aws_model->move_file('./assets/uploads/', 'sml-'  . strtolower($uploaded_photo));
+            $this->aws_model->move_file('./assets/uploads/', 'tall-' . strtolower($uploaded_photo));
 
 			// Get thumb width, height
 			list($width, $height) = @getimagesize('./assets/uploads/' . $uploaded_thumb);
@@ -438,12 +455,13 @@ class Assets_model extends CI_Model
 
 		if ($row)
 		{
-			if ($row->asset_type == 3)
+			if ($row->asset_type == 3 || $row->asset_type == 4)
 			{
 				// Get sub photos
 				$this->db->from('assets');
 				$this->db->where('photoset_id', $asset_id);
 				$this->db->where('user_id', $this->_user->user_id);
+                $this->db->where('is_cover_photo', 0);
 				$this->db->order_by('asset_id', 'asc');
 				$query = $this->db->get();
 				$row->photos = $query->result();
@@ -456,6 +474,61 @@ class Assets_model extends CI_Model
 
 		return $row;
 	}
+
+    /**
+     * Get Photoset Cover
+     *
+     * Get Photoset Cover photo
+     *
+     * @access public
+     * @return n/a
+     */
+    public function get_photoset_cover($photoset_id)
+    {
+        $this->db->from('assets');
+        $this->db->where('photoset_id', $photoset_id);
+        $this->db->where('user_id', $this->_user->user_id);
+        $this->db->where('is_cover_photo', 1);
+        $query = $this->db->get();
+        $row   = $query->row();
+
+        return $row;
+    }
+
+    /**
+     * Get Photoset Photos
+     *
+     * Get Photoset Photos, optional parameter to include the cover photo
+     *
+     * @access public
+     * @return n/a
+     */
+    public function get_photoset($photoset_id)
+    {
+        $this->db->from('assets');
+        $this->db->where('photoset_id', $photoset_id);
+        $this->db->where('user_id', $this->_user->user_id);
+        $this->db->where('is_cover_photo', 1);
+        $query = $this->db->get();
+        $row   = $query->row();
+
+        if ($row)
+        {
+            if ($row->asset_type == 3 || $row->asset_type == 4)
+            {
+                // Get sub photos
+                $this->db->from('assets');
+                $this->db->where('photoset_id', $photoset_id);
+                $this->db->where('user_id', $this->_user->user_id);
+                $this->db->where('is_cover_photo', 0);
+                $this->db->order_by('asset_id', 'asc');
+                $query = $this->db->get();
+                $row->photos = $query->result();
+            }
+        }
+
+        return $row;
+    }
 }
 
 /* End of file assets_model.php */

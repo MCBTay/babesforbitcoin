@@ -573,7 +573,7 @@ class Models_model extends CI_Model
 			$asset->asset_cost_btc = $this->cart_model->usd_to_btc($asset->asset_cost);
 
 			// Get subphotos
-			$asset->photos = $this->get_mine_photosets_photos($asset->asset_id);
+			$asset->photos = $this->get_mine_photosets_photos($asset->photoset_id);
 
 			$photos = count($asset->photos) + 1;
 
@@ -596,8 +596,10 @@ class Models_model extends CI_Model
 		// Get photosets photos
 		$this->db->from('assets');
 		$this->db->where('user_id', $this->_user->user_id);
-		$this->db->where('asset_type', 4);
+        $where_asset_type = "(asset_type = 3 OR asset_type = 4)";
+        $this->db->where($where_asset_type);
 		$this->db->where('deleted', 0);
+        $this->db->where('is_cover_photo', 0);
 		$this->db->where('photoset_id', $photoset_id);
 		$this->db->order_by('asset_id', 'desc');
 		$query  = $this->db->get();

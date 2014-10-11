@@ -16,7 +16,7 @@
 								<strong>Warning:</strong> Please fix any errors noted below.
 							</div>
 						<?php endif; ?>
-						<form action="<?php echo base_url(); ?>upload/photoset<?php echo isset($asset) ? '/' . $asset->asset_id : ''; ?>" enctype="multipart/form-data" id="upload-form" method="post">
+						<form action="<?php echo base_url(); ?>upload/photoset<?php echo isset($asset) ? '/' . $asset->photoset_id : ''; ?>" enctype="multipart/form-data" id="upload-form" method="post">
 							<div class="form-long">
 								<p>
 									<label for="photoset_title">Photoset Title:</label><br>
@@ -37,19 +37,13 @@
 									<?php endif; ?>
 								</p>
 								<div class="asset-upload">
-									<label for="cover_photo">Cover Photo:</label>
-									<div class="upload-progress"><div class="progress-bar"></div></div>
 									<?php if (isset($cover_photo)): ?>
+                                        <label for="cover_photo">Cover Photo:</label>
 										<div class="upload-preview-static"><?php echo $cover_photo; ?></div>
 									<?php elseif (isset($asset) && !empty($asset->filename)): ?>
-										<div class="upload-preview-static">
+                                        <label for="cover_photo">Cover Photo:</label>
+                                        <div class="upload-preview-static">
 											<img src="<?php echo CDN_URL . $asset->filename; ?>" width="536">
-										</div>
-									<?php else: ?>
-										<div class="upload-preview-static"></div>
-										<div class="button-file">
-											<span>Upload New Photo</span>
-											<input class="asset-upload-photoset" id="cover_photo" name="cover_photo" type="file">
 										</div>
 									<?php endif; ?>
 								</div>
@@ -60,7 +54,7 @@
                                             <?php $counter = 1; ?>
 											<?php foreach ($asset->photos as $photo): ?>
 												<img src="<?php echo CDN_URL . $photo->filename; ?>" width="536" class="<?php if ($counter == 1) echo 'first'; ?>">
-                                                <a class="button" href="">Make Cover Photo</a>
+                                                <button type="submit" class="button" name="change_cover_photo" value="<?php echo $photo->asset_id; ?>">Make Cover Photo</button>
                                                 <?php $counter ++; ?>
 											<?php endforeach; ?>
 										<?php endif; ?>

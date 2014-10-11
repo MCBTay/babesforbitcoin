@@ -187,18 +187,13 @@ class Upload extends CI_Controller
 		// Data array to be used in views
 		$data = array(
 			'class' => 'upload',
-			'title' => ($asset_id ? 'Edit' : 'Upload') . ' Photoset',
+			'title' => ($asset_id ? 'Edit' : 'Upload') . ' Photoset'
 		);
 
 		if ($asset_id)
 		{
 			// Get asset
-			$asset = $this->assets_model->get_asset($asset_id);
-
-			if (!$asset || $asset->asset_type != 3)
-			{
-				redirect('upload/photoset');
-			}
+            $asset = $this->assets_model->get_photoset($asset_id);
 
 			$data['asset'] = $asset;
 		}
@@ -216,46 +211,62 @@ class Upload extends CI_Controller
 
 		if ($this->form_validation->run() == TRUE)
 		{
-			// Add assets to the database
-			$this->assets_model->insert_photoset($asset_id);
+            if ($this->input->post('change_cover_photo'))
+            {
+                $new_cover_id = $this->input->post('change_cover_photo');
 
-			// Redirect with success message
-			redirect('upload/success');
+                //only one button should be pressed at once, but just as a safety check confirm
+                if (count($new_cover_id) == 1)
+                {
+                    $this->models_model->change_cover_photo($asset_id, $new_cover_id);
+                    redirect('upload/photoset/'. $asset_id);
+                }
+
+
+            } else {
+                // Add assets to the database
+                $this->assets_model->insert_photoset($asset_id);
+
+                // Redirect with success message
+                redirect('upload/success');
+            }
+
 		}
 		else
 		{
 			// See if we actually tried submitting
 			if (count($_POST))
 			{
-				// Get POSTed values
-				$asset_title    = $this->input->post('asset_title');
-				$uploaded_photo = $this->input->post('uploaded_photo');
+                // Get POSTed values
 
-				// Make sure they actually uploaded a cover photo
-				if (!empty($uploaded_photo))
-				{
-					$data['cover_photo'] = '<img src="' . base_url() . 'assets/uploads/' . $uploaded_photo . '" width="536"><input id="asset_title" name="asset_title" type="hidden" value="' . $asset_title . '"><input id="uploaded_photo" name="uploaded_photo" type="hidden" value="' . $uploaded_photo . '">';
-				}
+                $asset_title    = $this->input->post('asset_title');
+                //$uploaded_photo = $this->input->post('uploaded_photo');
+                // Make sure they actually uploaded a cover photo
+                if (!empty($uploaded_photo))
+                {
+                    $data['cover_photo'] = '<img src="' . base_url() . 'assets/uploads/' . $uploaded_photo . '" width="536"><input id="asset_title" name="asset_title" type="hidden" value="' . $asset_title . '"><input id="uploaded_photo" name="uploaded_photo" type="hidden" value="' . $uploaded_photo . '">';
+                }
 
-				// Get POSTed values
-				$child_asset_title    = (array) $this->input->post('child_asset_title');
-				$child_uploaded_photo = (array) $this->input->post('child_uploaded_photo');
+                // Get POSTed values
+                $child_asset_title    = (array) $this->input->post('child_asset_title');
+                $child_uploaded_photo = (array) $this->input->post('child_uploaded_photo');
 
-				// Make sure they actually uploaded at least one photoset photo
-				if (count($child_uploaded_photo) >= 1 && !empty($child_uploaded_photo[0]))
-				{
-					$data['photoset_photos'] = '';
+                // Make sure they actually uploaded at least one photoset photo
+                if (count($child_uploaded_photo) >= 1 && !empty($child_uploaded_photo[0]))
+                {
+                    $data['photoset_photos'] = '';
 
-					foreach ($child_uploaded_photo as $key => $child_photo)
-					{
-						if (isset($child_asset_title[$key]))
-						{
-							$child_title = $child_asset_title[$key];
-						}
+                    foreach ($child_uploaded_photo as $key => $child_photo)
+                    {
+                        if (isset($child_asset_title[$key]))
+                        {
+                            $child_title = $child_asset_title[$key];
+                        }
 
-						$data['photoset_photos'] .= '<p style="margin-bottom: 15px; margin-top: 0;"><img src="' . base_url() . 'assets/uploads/' . $child_photo . '" width="536"><input name="child_asset_title[]" type="hidden" value="' . $child_title . '"><input name="child_uploaded_photo[]" type="hidden" value="' . $child_photo . '"></p>';
-					}
-				}
+                        $data['photoset_photos'] .= '<p style="margin-bottom: 15px; margin-top: 0;"><img src="' . base_url() . 'assets/uploads/' . $child_photo . '" width="536"><input name="child_asset_title[]" type="hidden" value="' . $child_title . '"><input name="child_uploaded_photo[]" type="hidden" value="' . $child_photo . '"></p>';
+                    }
+                }
+
 			}
 		}
 

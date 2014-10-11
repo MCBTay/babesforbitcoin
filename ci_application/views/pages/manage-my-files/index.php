@@ -98,18 +98,20 @@
 									<?php if (empty($asset->filename)): ?>
 										<a class="button" href="<?php echo base_url(); ?>upload/photoset/<?php echo $asset->asset_id; ?>">Add Cover Photo</a>
 									<?php endif; ?>
-									<a class="button" href="<?php echo base_url(); ?>upload/photoset/<?php echo $asset->asset_id; ?>">Edit Set</a>
+									<a class="button" href="<?php echo base_url(); ?>upload/photoset/<?php echo $asset->photoset_id; ?>">Edit Set</a>
 								</div>
 							<?php endif; ?>
 							<div class="panel-photo">
-								<a class="fancybox" rel="photoset<?php echo $asset->asset_id; ?>" href="<?php echo !empty($asset->filename) ? CDN_URL . $asset->filename : base_url() . 'assets/img/no-photo.png'; ?>">
-									<div class="watermark-wrap">
-										<img alt="<?php echo $asset->asset_title; ?>" src="<?php echo !empty($asset->filename) ? CDN_URL . 'sml-' . strtolower($asset->filename) : base_url() . 'assets/img/no-photo.png'; ?>" width="170" height="170">
-										<?php if ($asset->asset_hd): ?>
-											<div class="watermark-hd"></div>
-										<?php endif; ?>
-									</div>
-								</a>
+                                <?php if ($asset->is_cover_photo): ?>
+                                    <a class="fancybox" rel="photoset<?php echo $asset->asset_id; ?>" href="<?php echo !empty($asset->filename) ? CDN_URL . $asset->filename : base_url() . 'assets/img/no-photo.png'; ?>">
+                                        <div class="watermark-wrap">
+                                            <img alt="<?php echo $asset->asset_title; ?>" src="<?php echo !empty($asset->filename) ? CDN_URL . 'sml-' . strtolower($asset->filename) : base_url() . 'assets/img/no-photo.png'; ?>" width="170" height="170">
+                                            <?php if ($asset->asset_hd): ?>
+                                                <div class="watermark-hd"></div>
+                                            <?php endif; ?>
+                                        </div>
+                                    </a>
+                                <?php endif; ?>
 								<?php if (isset($send)): ?>
 									<div class="panel-photo-offline text-center">Includes entire set</div>
 									<a class="button send-contrib" id="send-contrib<?php echo $asset->asset_id; ?>" href="<?php echo base_url(); ?>maange-my-files/send/<?php echo $asset->asset_id; ?>">Send to Contributor</a>
@@ -119,22 +121,24 @@
 								<?php endif; ?>
 							</div>
 							<?php foreach ($asset->photos as $photo): ?>
-								<div class="panel-photo">
-									<a class="fancybox" rel="photoset<?php echo $asset->asset_id; ?>" href="<?php echo !empty($photo->filename) ? CDN_URL . $photo->filename : base_url() . 'assets/img/no-photo.png'; ?>">
-										<div class="watermark-wrap">
-											<img alt="<?php echo $photo->asset_title; ?>" src="<?php echo !empty($photo->filename) ? CDN_URL . 'sml-' . strtolower($photo->filename) : base_url() . 'assets/img/no-photo.png'; ?>" width="170" height="170">
-											<?php if ($photo->asset_hd): ?>
-												<div class="watermark-hd"></div>
-											<?php endif; ?>
-										</div>
-									</a>
-									<div class="panel-photo-offline text-center">&nbsp;</div>
-									<?php if (isset($send)): ?>
-										<a class="button send-contrib sub-send-contrib<?php echo $asset->asset_id; ?>" id="send-contrib<?php echo $photo->asset_id; ?>" href="<?php echo base_url(); ?>manage-my-files/send/<?php echo $photo->asset_id; ?>">Send to Contributor</a>
-									<?php else: ?>
-										<div class="panel-photo-details text-center">&nbsp;</div>
-									<?php endif; ?>
-								</div>
+                                <?php if (!$photo->is_cover_photo): ?>
+                                    <div class="panel-photo">
+                                        <a class="fancybox" rel="photoset<?php echo $asset->asset_id; ?>" href="<?php echo !empty($photo->filename) ? CDN_URL . $photo->filename : base_url() . 'assets/img/no-photo.png'; ?>">
+                                            <div class="watermark-wrap">
+                                                <img alt="<?php echo $photo->asset_title; ?>" src="<?php echo !empty($photo->filename) ? CDN_URL . 'sml-' . strtolower($photo->filename) : base_url() . 'assets/img/no-photo.png'; ?>" width="170" height="170">
+                                                <?php if ($photo->asset_hd): ?>
+                                                    <div class="watermark-hd"></div>
+                                                <?php endif; ?>
+                                            </div>
+                                        </a>
+                                        <div class="panel-photo-offline text-center">&nbsp;</div>
+                                        <?php if (isset($send)): ?>
+                                            <a class="button send-contrib sub-send-contrib<?php echo $asset->asset_id; ?>" id="send-contrib<?php echo $photo->asset_id; ?>" href="<?php echo base_url(); ?>manage-my-files/send/<?php echo $photo->asset_id; ?>">Send to Contributor</a>
+                                        <?php else: ?>
+                                            <div class="panel-photo-details text-center">&nbsp;</div>
+                                        <?php endif; ?>
+                                    </div>
+                                <?php endif; ?>
 							<?php endforeach; ?>
 						<?php endif; ?>
 					<?php endforeach; ?>

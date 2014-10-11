@@ -1,1 +1,4 @@
 .idea
+assets/uploads
+assets/uploads.bak
+assets/*.jpg
