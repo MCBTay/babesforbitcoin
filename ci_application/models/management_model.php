@@ -899,6 +899,7 @@ class Management_model extends CI_Model
 		return $result;
 	}
 
+    /**
 	/**
 	 * Get Asset
 	 *
@@ -910,7 +911,6 @@ class Management_model extends CI_Model
 	public function get_asset($asset_id = 0)
 	{
 		$this->db->from('assets');
-		$this->db->join('assets_types', 'assets_types.asset_type_id = assets.asset_type');
 		$this->db->join('users', 'users.user_id = assets.user_id');
 		$this->db->where('asset_id', $asset_id);
 		$query = $this->db->get();
@@ -935,12 +935,13 @@ class Management_model extends CI_Model
 		$row->subphotos = array();
 
 		// Let's get all subphotos for photosets
-		if ($row->asset_type == 3)
+		if ($row->asset_type == 3 || $row->asset_type == 4)
 		{
 			// Get asset_id's to re-use in this recursive function
 			$this->db->select('asset_id');
 			$this->db->from('assets');
 			$this->db->where('photoset_id', $asset_id);
+            $this->db->where('asset_id !=', $row->asset_id);
 			$this->db->order_by('approved', 'asc');
 			$this->db->order_by('asset_id', 'desc');
 			$query  = $this->db->get();

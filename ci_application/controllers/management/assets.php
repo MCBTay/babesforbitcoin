@@ -143,12 +143,12 @@ class Assets extends CI_Controller
 	 * @return n/a
 	 */
 	public function edit($asset_id)
-	{
-		// Require valid user
-		$this->management_model->require_valid_user();
+    {
+        // Require valid user
+        $this->management_model->require_valid_user();
 
-		// Get the asset object from the database
-		$asset = $this->management_model->get_asset($asset_id);
+        $asset = $this->management_model->get_asset($asset_id);
+
 
 		if (!$asset)
 		{

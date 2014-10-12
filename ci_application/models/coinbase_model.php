@@ -50,7 +50,7 @@ class Coinbase_model extends CI_Model
 		$post = file_get_contents("php://input");
 		$json = json_decode($post);
 
-		/*
+
 		// Send callback POST data by email for testing
 		ob_start();
 		echo '<pre>';
@@ -58,14 +58,14 @@ class Coinbase_model extends CI_Model
 		echo '</pre>';
 		$message = ob_get_clean();
 		$this->emailer_model->send(
-			$mail_to         = 'jtneal@gmail.com',
+			$mail_to         = 'mcbtay@gmail.com',
 			$mail_subject    = 'Test API',
 			$mail_message    = $message,
 			$mail_from_email = 'info@babesforbitcoin.com',
 			$mail_from_name  = 'Babes for Bitcoin',
 			$tag             = 'testing'
 		);
-		*/
+
 
 		if (!is_object($json))
 		{
@@ -75,6 +75,20 @@ class Coinbase_model extends CI_Model
 
 		$transaction = $this->coinbase->getTransaction($json->order->transaction->id);
 
+        // Send callback POST data by email for testing
+        ob_start();
+        echo '<pre>';
+        print_r($transaction);
+        echo '</pre>';
+        $message = ob_get_clean();
+        $this->emailer_model->send(
+            $mail_to         = 'mcbtay@gmail.com',
+            $mail_subject    = 'Test API - transaction',
+            $mail_message    = $message,
+            $mail_from_email = 'info@babesforbitcoin.com',
+            $mail_from_name  = 'Babes for Bitcoin',
+            $tag             = 'testing'
+        );
 		if (!is_object($transaction))
 		{
 			// We couldn't find this transaction in Coinbase
