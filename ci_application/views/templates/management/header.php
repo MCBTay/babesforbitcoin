@@ -77,6 +77,9 @@
 							<input class="form-control" name="search" id="search" placeholder="Find a user" type="text">
 						</form>
 					</div>
+                    <div class="text-right navbar-frontend">
+                        <h2><a href="<?php echo base_url(); ?>" class="btn btn-primary">Front End</a></h2>
+                    </div>
 					<div class="text-right navbar-logout">
 						<h2><a href="<?php echo base_url(); ?>management/account/logout" class="btn btn-danger">Logout</a></h2>
 					</div>

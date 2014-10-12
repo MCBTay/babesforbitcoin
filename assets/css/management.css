@@ -17,6 +17,12 @@ body {
 	z-index: 9999;
 }
 
+.navbar-frontend {
+    position: absolute;
+    right: 80px;
+    top: -14px;
+}
+
 .navbar-logout {
 	position: absolute;
 	right: 70px;
@@ -25,7 +31,7 @@ body {
 
 @media (min-width: 768px) {
 	.navbar-search {
-		right: 80px;
+		right: 180px;
 	}
 	.navbar-logout {
 		right: 0;
