@@ -22,7 +22,7 @@
 										<input class="asset-upload-private" id="private_photo" multiple name="private_photo[]" type="file">
 									</div>
 								</div>
-								<p class="legal" style="margin-top: 15px;">This is for photos and videos that you can send directly to contributors, only you can see these.</p>
+								<p class="legal" style="margin-top: 15px;">This is for photos and videos that you can send directly to fans, only you can see these.</p>
 								<p style="margin-top: 15px;">
 									<input class="submit" id="save" name="save" type="submit" value="Save">
 								</p>

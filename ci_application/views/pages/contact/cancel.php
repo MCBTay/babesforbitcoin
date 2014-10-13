@@ -38,7 +38,7 @@
 								<p>
 									<label for="email">Please state your reason for leaving:</label><br>
 									<label><input name="reason" type="radio" value="Unhappy with the look of the site"> Unhappy with the look of the site<br></label>
-									<label><input name="reason" type="radio" value="Problems with a particular model/contributor"> Problems with a particular model/contributor<br></label>
+									<label><input name="reason" type="radio" value="Problems with a particular model/fan"> Problems with a particular model/fan<br></label>
 									<label><input name="reason" type="radio" value="I'm having problems with account security"> I'm having problems with account security<br></label>
 									<label><input name="reason" type="radio" value="Not enough features"> Not enough features<br></label>
 									<label><input name="reason" type="radio" value="Other"> Other</label>

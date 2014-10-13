@@ -7,7 +7,7 @@
 		</div>
 		<div class="upcoming-right">
 			<h3>Favorites</h3>
-			<p>Contributors, gain the ability to save your favorite models in one convenient spot, no more long nights searching for that "one that got away"</p>
+			<p>Fans, gain the ability to save your favorite models in one convenient spot, no more long nights searching for that "one that got away"</p>
 			<p>Models,save your friends and keep up with the ones whom you've developed great relationships with.</p>
 			</p>
 		</div>
@@ -30,7 +30,7 @@
 		<div class="upcoming-right">
 			<h3>Wishlist</h3>
 			<p>
-				Contributors, do you have the itching for a certain photoset or video but just don't have the cash? Save it for later!
+				Fans, do you have the itching for a certain photoset or video but just don't have the cash? Save it for later!
 			</p>
 		</div>
 	</div>
@@ -41,7 +41,7 @@
 		<div class="upcoming-right">
 			<h3>Upgrade</h3>
 			<p>
-				For contributors whom cannot get enough of the site, we'll be offering memberships which will offer discounts and a better way to be noticed by all of the lovely ladies.
+				For fans whom cannot get enough of the site, we'll be offering memberships which will offer discounts and a better way to be noticed by all of the lovely ladies.
 			</p>
 		</div>
 	</div>
@@ -49,7 +49,7 @@
 	<h2 style="margin-top: 15px;">Other Upcoming Features</h2>
 		<div class="upcoming-feature">
 			<h3>Cam/IM chat</h3>
-			<p>Would you like the ability to instant message or video chat with all of the best babes and contributors? Well stick around, it's on the top of our list!</p>
+			<p>Would you like the ability to instant message or video chat with all of the best babes and fans? Well stick around, it's on the top of our list!</p>
 		</div>
 				<div class="upcoming-feature">
 			<h3>Profile Visitors</h3>

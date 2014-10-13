@@ -7,7 +7,7 @@
 		<li class="nav-home<?php echo $this->uri->segment(1) == '' ? ' nav-active' : ''; ?>"><a href="<?php echo base_url(); ?>">home</a></li>
 		<li class="nav-separator">|</li>
 		<?php if ($this->_user->user_type != 1): ?>
-			<li class="nav-contributors<?php echo $this->uri->segment(1) == 'contributors' ? ' nav-active' : ''; ?>"><a href="<?php echo base_url(); ?>contributors">contributors</a></li>
+			<li class="nav-contributors<?php echo $this->uri->segment(1) == 'contributors' ? ' nav-active' : ''; ?>"><a href="<?php echo base_url(); ?>contributors">fans</a></li>
 			<li class="nav-separator">|</li>
 		<?php endif; ?>
 		<?php /* if ($this->_user->user_type != 2): */?>

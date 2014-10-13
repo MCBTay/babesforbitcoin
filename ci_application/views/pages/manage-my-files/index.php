@@ -2,10 +2,10 @@
 <div id="page-my-files">
 	<div class="content-wrapper">
 		<?php if (isset($send)): ?>
-			<h2>Send to Contributor</h2>
+			<h2>Send to Fan</h2>
 			<?php if (!$this->_user->user_approved): ?>
 				<div class="alert alert-danger">
-					<strong>Warning:</strong> Your account must be approved before you can send files to contributors.
+					<strong>Warning:</strong> Your account must be approved before you can send files to fans.
 				</div>
 			<?php endif; ?>
 			<form action="<?php echo base_url(); ?>manage-my-files/send/<?php echo $contributor_id; ?>" method="post">
@@ -13,10 +13,10 @@
 				<div class="clearfix"></div>
 				<div class="form-long">
 					<p>
-						Contributor: <?php echo $contrib->display_name ? $contrib->display_name : 'Contributor # ' . $contrib->user_id; ?>
+						Fan: <?php echo $contrib->display_name ? $contrib->display_name : 'Fan # ' . $contrib->user_id; ?>
 					</p>
 					<p class="legal">
-						Only approved files are available to be sent to contributors. Approval typically takes about an hour.
+						Only approved files are available to be sent to fans. Approval typically takes about an hour.
 					</p>
 					<p id="hidden_send" style="display: none;">
 						<input class="submit" id="send" name="send" type="submit" value="Send">
@@ -72,7 +72,7 @@
 									</div>
 								</a>
 								<?php if (isset($send)): ?>
-									<a class="button send-contrib" id="send-contrib<?php echo $asset->asset_id; ?>" href="<?php echo base_url(); ?>manage-my-files/send/<?php echo $asset->asset_id; ?>">Send to Contributor</a>
+									<a class="button send-contrib" id="send-contrib<?php echo $asset->asset_id; ?>" href="<?php echo base_url(); ?>manage-my-files/send/<?php echo $asset->asset_id; ?>">Send to Fan</a>
 								<?php else: ?>
 									<a class="button" href="<?php echo base_url(); ?>manage-my-files/remove/<?php echo $asset->asset_id; ?>">Remove from site</a>
 								<?php endif; ?>
@@ -114,7 +114,7 @@
                                 <?php endif; ?>
 								<?php if (isset($send)): ?>
 									<div class="panel-photo-offline text-center">Includes entire set</div>
-									<a class="button send-contrib" id="send-contrib<?php echo $asset->asset_id; ?>" href="<?php echo base_url(); ?>maange-my-files/send/<?php echo $asset->asset_id; ?>">Send to Contributor</a>
+									<a class="button send-contrib" id="send-contrib<?php echo $asset->asset_id; ?>" href="<?php echo base_url(); ?>maange-my-files/send/<?php echo $asset->asset_id; ?>">Send to Fan</a>
 								<?php else: ?>
 									<div class="panel-photo-offline text-center"><?php if ($asset->approved): ?><span class="unapproved">*</span><?php endif; ?><?php echo $asset->asset_title; ?></div>
 									<div class="panel-photo-details text-center">$<?php echo $asset->asset_cost; ?> | &#579;<?php echo $asset->asset_cost_btc; ?></div>
@@ -133,7 +133,7 @@
                                         </a>
                                         <div class="panel-photo-offline text-center">&nbsp;</div>
                                         <?php if (isset($send)): ?>
-                                            <a class="button send-contrib sub-send-contrib<?php echo $asset->asset_id; ?>" id="send-contrib<?php echo $photo->asset_id; ?>" href="<?php echo base_url(); ?>manage-my-files/send/<?php echo $photo->asset_id; ?>">Send to Contributor</a>
+                                            <a class="button send-contrib sub-send-contrib<?php echo $asset->asset_id; ?>" id="send-contrib<?php echo $photo->asset_id; ?>" href="<?php echo base_url(); ?>manage-my-files/send/<?php echo $photo->asset_id; ?>">Send to Fan</a>
                                         <?php else: ?>
                                             <div class="panel-photo-details text-center">&nbsp;</div>
                                         <?php endif; ?>
@@ -171,7 +171,7 @@
 								</a>
 								<div class="panel-photo-offline text-center"><?php if (!$asset->approved): ?><span class="unapproved">*</span><?php endif; ?><?php echo $asset->asset_title; ?></div>
 								<?php if (isset($send)): ?>
-									<a class="button send-contrib" id="send-contrib<?php echo $asset->asset_id; ?>" href="<?php echo base_url(); ?>manage-my-files/send/<?php echo $asset->asset_id; ?>">Send to Contributor</a>
+									<a class="button send-contrib" id="send-contrib<?php echo $asset->asset_id; ?>" href="<?php echo base_url(); ?>manage-my-files/send/<?php echo $asset->asset_id; ?>">Send to Fan</a>
 								<?php else: ?>
 									<div class="panel-photo-details text-center">$<?php echo $asset->asset_cost; ?> | &#579;<?php echo $asset->asset_cost_btc; ?></div>
 									<a class="button" href="<?php echo base_url(); ?>upload/video/<?php echo $asset->asset_id; ?>">Edit Title &amp; Price</a>

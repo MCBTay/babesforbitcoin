@@ -18,7 +18,7 @@
 			<div class="input-group">
 				<label for="user_type">Account Type:</label>
 				<select class="input-group-showhide" id="user_type" name="user_type">
-					<option value="1"<?php echo set_select('user_type', '1'); ?>>Contributor</option>
+					<option value="1"<?php echo set_select('user_type', '1'); ?>>Fan</option>
 					<option value="2"<?php echo set_select('user_type', '2'); ?>>Model</option>
 				</select>
 				<?php if (form_error('user_type') != ''): ?>

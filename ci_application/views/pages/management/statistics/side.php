@@ -31,7 +31,7 @@
 				<table class="table">
 					<thead>
 						<tr>
-							<th colspan="2">Contributors</th>
+							<th colspan="2">Fans</th>
 						</tr>
 					</thead>
 					<tbody>

@@ -86,7 +86,7 @@
 										</span>
 									<?php endif; ?>
 								</div>
-								<p class="legal" style="margin-top: 15px;">These are videos that are available for purchase by all contributors, please choose private files if you wish to only send this to contributors of your choosing.</p>
+								<p class="legal" style="margin-top: 15px;">These are videos that are available for purchase by all fans, please choose private files if you wish to only send this to fans of your choosing.</p>
 								<p style="margin-top: 15px;">
 									<?php if (isset($asset)): ?>
 										<input class="submit" id="save" name="save" type="submit" value="Save">

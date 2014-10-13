@@ -8,7 +8,7 @@
 					<li><a<?php echo $category == 'models' ? ' class="active"' : ''; ?> href="<?php echo base_url(); ?>search/results/<?php echo $keyword; ?>">Models [<?php echo count($models); ?>]</a></li>
 				<?php endif; ?>
 				<?php if ($user_type != 1): ?>
-					<li><a<?php echo $category == 'contributors' ? ' class="active"' : ''; ?> href="<?php echo base_url(); ?>search/results/<?php echo $keyword; ?>/contributors">Contributors [<?php echo count($contributors); ?>]</a></li>
+					<li><a<?php echo $category == 'contributors' ? ' class="active"' : ''; ?> href="<?php echo base_url(); ?>search/results/<?php echo $keyword; ?>/contributors">Fans [<?php echo count($contributors); ?>]</a></li>
 				<?php endif; ?>
 				<?php if ($user_type != 2): ?>
 					<li><a<?php echo $category == 'assets' ? ' class="active"' : ''; ?> href="<?php echo base_url(); ?>search/results/<?php echo $keyword; ?>/assets">Assets [<?php echo count($assets); ?>]</a></li>

@@ -7,11 +7,11 @@
 				</div>
 				<h3>What is Babes for Bitcoin?</h3>
 				<div>
-					<p>Babes for Bitcoin is a social networking site built to help facilitate interaction between contributors who wish to view and buy custom made content, and models who wish to make a living from home; or just earn a little extra on the side without having to put in too much time or work.</p>
+					<p>Babes for Bitcoin is a social networking site built to help facilitate interaction between fans who wish to view and buy custom made content, and models who wish to make a living from home; or just earn a little extra on the side without having to put in too much time or work.</p>
 				</div>
 				<h3>How does it work?</h3>
 				<div>
-					<p>Contributors place funds into their accounts in either US dollars or bitcoin, in order to use for various functions such as sending messages, buying photosets or videos, or just giving to give.</p>
+					<p>Fans place funds into their accounts in either US dollars or bitcoin, in order to use for various functions such as sending messages, buying photosets or videos, or just giving to give.</p>
 				</div>
 				<h3>What does it take to join?</h3>
 				<div>
@@ -96,7 +96,7 @@
 				</div>
 				<h3>Am I allowed to share personal information?</h3>
 				<div>
-					<p>You are welcome to post your twitter, tumblr, vine, or any other social networking site on which you may promote your BFB profile as well as make closer connections with your contributors. </p>
+					<p>You are welcome to post your twitter, tumblr, vine, or any other social networking site on which you may promote your BFB profile as well as make closer connections with your fans. </p>
 					<p>We do request you do not link to other sites on which you sell items; we have worked extremely hard to create a well functioning site which we hope you’ll enjoy and stay with.</p>
 					<p>If you are not happy with any of our site features or are having problems with the site, please <a href="mailto:info@babesforbitcoin.com">contact us</a> here with suggestions, requests, and notify us of any problems you may experience.</p>
 				</div>

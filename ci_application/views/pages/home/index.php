@@ -21,7 +21,7 @@
 					<p>Check out our <a href="<?php echo base_url(); ?>models">models page</a> to find someone you like.</p>
 				<?php endif; ?>
 				<?php if ($this->_user->user_type == 2 || $this->_user->user_type >= 3): ?>
-					<p>Check out our <a href="<?php echo base_url(); ?>contributors">contributors page</a> to find someone you like.</p>
+					<p>Check out our <a href="<?php echo base_url(); ?>contributors">fans page</a> to find someone you like.</p>
 				<?php endif; ?>
 				<p>Enjoy your stay and <a href="<?php echo base_url(); ?>contact">let us know</a> if you have any questions.</p>
 			<?php else: ?>
