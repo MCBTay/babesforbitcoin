@@ -340,8 +340,19 @@ class Models_model extends CI_Model
 			// Get assets
 			$this->db->from('assets');
 			$this->db->where('user_id', $model_id);
-			$this->db->where('asset_type', $asset_type);
-			$this->db->where('deleted', 0);
+
+            //hacky workaround for no longer having asset types of 3 on new photosets
+            if ($asset_type == 3)
+            {
+                $where_asset_type = "(asset_type = 3 OR asset_type = 4)";
+                $this->db->where($where_asset_type);
+            }
+            else
+            {
+                $this->db->where('asset_type', $asset_type);
+            }
+
+            $this->db->where('deleted', 0);
 			if (!$model->trusted)
 			{
 				$this->db->where('approved', 1);

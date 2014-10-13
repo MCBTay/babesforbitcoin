@@ -217,7 +217,6 @@ class Upload extends CI_Controller
 
                 if ($new_cover_id)
                 {
-                    // Add asset to the database
                     $data = array(
                         'asset_cost'    => $this->input->post('asset_cost'),
                         'asset_title'   => $this->input->post('photoset_title'),
@@ -238,6 +237,9 @@ class Upload extends CI_Controller
             } else {
                 // Add assets to the database
                 $this->assets_model->insert_photoset($asset_id);
+
+                $this->session->set_flashdata('post_successful', true);
+
                 // Redirect with success message
                 redirect('upload/photoset/'. $asset_id);
             }

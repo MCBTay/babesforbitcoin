@@ -43,12 +43,12 @@
 									<?php endif; ?>
 								</p>
 								<p class="thumbnail-cta">
-									<a href="<?php echo base_url(); ?>management/assets/edit/<?php echo $asset->asset_id; ?>" class="btn btn-primary" role="button">Edit</a>
+									<a href="<?php echo base_url(); ?>management/assets/edit/<?php if ($asset->asset_type == 3 || $asset->asset_type == 4) { echo $asset->photoset_id; } else { echo $asset->asset_id; } ?>" class="btn btn-primary" role="button">Edit</a>
 									<?php if ($asset->approved == 0 && ($asset->asset_type == 1 || $asset->asset_type == 2)): ?>
 										&nbsp;
 										<a href="<?php echo base_url(); ?>management/users/gallery/<?php echo $asset->user_id; ?>/approve/<?php echo $asset->asset_id; ?>" class="btn btn-success" role="button">Approve</a>
 									<?php endif; ?>
-									<?php if ($asset->asset_type == 3): ?>
+									<?php if ($asset->asset_type == 3 || $asset->asset_type == 4): ?>
 										&nbsp;
 										<a href="<?php echo base_url(); ?>management/users/gallery/<?php echo $asset->user_id; ?>/add/4/<?php echo $asset->asset_id; ?>" class="btn btn-success" role="button">Add</a>
 									<?php endif; ?>

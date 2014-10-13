@@ -559,6 +559,7 @@ class Management_model extends CI_Model
 		foreach ($result as $row)
 		{
 			// Add one to created for this asset_type
+            if ($row->asset_type == 3)
 			$stats[$row->asset_type]->created += 1;
 
 			// If this is the first one of this asset type
@@ -947,7 +948,7 @@ class Management_model extends CI_Model
 		$row->subphotos = array();
 
 		// Let's get all subphotos for photosets
-		if ($row->asset_type == 3 || $row->asset_type == 4)
+		if ($row->is_cover_photo && ($row->asset_type == 3 || $row->asset_type == 4))
 		{
 			// Get asset_id's to re-use in this recursive function
 			$this->db->select('asset_id');

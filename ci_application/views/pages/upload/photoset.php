@@ -16,6 +16,11 @@
 							<div class="alert alert-danger">
 								<strong>Warning:</strong> Please fix any errors noted below.
 							</div>
+                        <?php else: ?>
+                            <?php echo $success; ?>
+                            <div class="alert alert-danger">
+                                <strong>Success:</strong> Your photoset has been saved.
+                            </div>
 						<?php endif; ?>
 						<form action="<?php echo base_url(); ?>upload/photoset<?php echo isset($asset) ? '/' . $asset->photoset_id : ''; ?>" enctype="multipart/form-data" id="upload-form" method="post">
 							<div class="form-long">

@@ -19,7 +19,7 @@
 							<?php endif; ?>
 						</div>
 					</div>
-					<?php if ($asset->asset_type == 3 || $asset->asset_type == 5): ?>
+					<?php if (($asset->is_cover_photo && ($asset->asset_type == 3 || $asset->asset_type == 4)) || $asset->asset_type == 5): ?>
 						<div class="form-group<?php echo form_error('asset_cost') != '' ? ' has-error' : ''; ?> has-feedback" style="padding-top: 15px;">
 							<div class="col-sm-12">
 								<label for="asset_cost">Cost</label>
