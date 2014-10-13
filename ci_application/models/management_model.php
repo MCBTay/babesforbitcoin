@@ -482,7 +482,19 @@ class Management_model extends CI_Model
 		// Get the values from the database
 		$this->db->from('assets');
 		$this->db->where('user_id', $user_id);
-		$this->db->where('asset_type', $asset_type);
+
+        //hacky workaround for no longer having asset types of 3 on new photosets
+        if ($asset_type == 3)
+        {
+            $where_asset_type = "(asset_type = 3 OR asset_type = 4)";
+            $this->db->where($where_asset_type);
+            $this->db->where('is_cover_photo', 1);
+        }
+        else
+        {
+            $this->db->where('asset_type', $asset_type);
+        }
+
 		$this->db->order_by('asset_id', 'desc');
 		$query  = $this->db->get();
 		$result = $query->result();
