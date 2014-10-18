@@ -277,7 +277,7 @@ class Contributors_model extends CI_Model
 		{
 			// Get photos
 			$this->db->from('assets');
-			$this->db->where_in('asset_type', array(2, 4));
+			$this->db->where_in('asset_type', array(2, 3, 4));
 			if ($model_id)
 			{
 				$this->db->where('assets.user_id', $model_id);
@@ -293,10 +293,10 @@ class Contributors_model extends CI_Model
 		}
 		else
 		{
-			// Get photos
+			// Get private photos
 			$this->db->from('users_purchases');
 			$this->db->join('assets', 'assets.asset_id = users_purchases.asset_id');
-			$this->db->where_in('assets.asset_type', array(2, 4));
+			$this->db->where('assets.asset_type', 2);
 			$this->db->where('users_purchases.user_id', $this->_user->user_id);
 			if ($model_id)
 			{

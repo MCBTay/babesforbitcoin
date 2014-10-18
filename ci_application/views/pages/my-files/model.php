@@ -48,29 +48,35 @@
 				<?php foreach ($photosets as $asset): ?>
 					<div class="clearfix"></div>
 					<h3 class="normal" style="margin-top: 0;"><?php echo $asset->asset_title; ?></h3>
-					<div class="panel-photo">
-						<a class="fancybox" rel="photoset<?php echo $asset->asset_id; ?>_1" href="<?php echo !empty($asset->filename) ? CDN_URL . $asset->filename : base_url() . 'assets/img/no-photo.png'; ?>">
-							<div class="watermark-wrap">
-								<img alt="<?php echo $asset->asset_title; ?>" src="<?php echo !empty($asset->filename) ? CDN_URL . 'sml-' . strtolower($asset->filename) : base_url() . 'assets/img/no-photo.png'; ?>" width="170" height="170">
-								<?php if ($asset->asset_hd): ?>
-									<div class="watermark-hd"></div>
-								<?php endif; ?>
-							</div>
-						</a>
-						<?php /* <a class="button fancybox" rel="photoset<?php echo $asset->asset_id; ?>_2" href="<?php echo CDN_URL . $asset->filename; ?>">View Photo</a> */ ?>
-					</div>
+                    <?php foreach ($asset->photos as $photo): ?>
+                        <?php if ($asset->cover_photo_id == $photo->asset_id): ?>
+                            <div class="panel-photo">
+                                <a class="fancybox" rel="photoset<?php echo $photo->asset_id; ?>_1" href="<?php echo !empty($photo->filename) ? CDN_URL . $photo->filename : base_url() . 'assets/img/no-photo.png'; ?>">
+                                    <div class="watermark-wrap">
+                                        <img alt="<?php echo $photo->asset_title; ?>" src="<?php echo !empty($photo->filename) ? CDN_URL . 'sml-' . strtolower($photo->filename) : base_url() . 'assets/img/no-photo.png'; ?>" width="170" height="170">
+                                        <?php if ($photo->asset_hd): ?>
+                                            <div class="watermark-hd"></div>
+                                        <?php endif; ?>
+                                    </div>
+                                </a>
+                                <?php /* <a class="button fancybox" rel="photoset<?php echo $asset->asset_id; ?>_2" href="<?php echo CDN_URL . $asset->filename; ?>">View Photo</a> */ ?>
+                            </div>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
 					<?php foreach ($asset->photos as $photo): ?>
-						<div class="panel-photo">
-							<a class="fancybox" rel="photoset<?php echo $asset->asset_id; ?>_1" href="<?php echo !empty($photo->filename) ? CDN_URL . $photo->filename : base_url() . 'assets/img/no-photo.png'; ?>">
-								<div class="watermark-wrap">
-									<img alt="<?php echo $photo->asset_title; ?>" src="<?php echo !empty($photo->filename) ? CDN_URL . 'sml-' . strtolower($photo->filename) : base_url() . 'assets/img/no-photo.png'; ?>" width="170" height="170">
-									<?php if ($photo->asset_hd): ?>
-										<div class="watermark-hd"></div>
-									<?php endif; ?>
-								</div>
-							</a>
-							<?php /* <a class="button fancybox" rel="photoset<?php echo $asset->asset_id; ?>_2" href="<?php echo CDN_URL . $photo->filename; ?>">View Photo</a> */ ?>
-						</div>
+                        <?php if ($asset->cover_photo_id != $photo->asset_id): ?>
+                            <div class="panel-photo">
+                                <a class="fancybox" rel="photoset<?php echo $asset->asset_id; ?>_1" href="<?php echo !empty($photo->filename) ? CDN_URL . $photo->filename : base_url() . 'assets/img/no-photo.png'; ?>">
+                                    <div class="watermark-wrap">
+                                        <img alt="<?php echo $photo->asset_title; ?>" src="<?php echo !empty($photo->filename) ? CDN_URL . 'sml-' . strtolower($photo->filename) : base_url() . 'assets/img/no-photo.png'; ?>" width="170" height="170">
+                                        <?php if ($photo->asset_hd): ?>
+                                            <div class="watermark-hd"></div>
+                                        <?php endif; ?>
+                                    </div>
+                                </a>
+                                <?php /* <a class="button fancybox" rel="photoset<?php echo $asset->asset_id; ?>_2" href="<?php echo CDN_URL . $photo->filename; ?>">View Photo</a> */ ?>
+                            </div>
+                        <?php endif; ?>
 					<?php endforeach; ?>
 				<?php endforeach; ?>
 			</div>
