@@ -222,8 +222,8 @@ class Upload extends CI_Controller
                         'asset_title'   => $this->input->post('photoset_title'),
                     );
 
-                    $this->db->where('photoset_id', $new_cover_id);
-                    $this->db->update('assets', $data);
+                    $this->db->where('photoset_id', $asset_id);
+                    $this->db->update('photosets', $data);
                 }
 
                 //only one button should be pressed at once, but just as a safety check confirm

@@ -1107,18 +1107,9 @@ class Models_model extends CI_Model
      */
     public function change_cover_photo($photoset_id, $new_cover_id)
     {
-        //change existing cover photo to no longer be cover
-        $this->db->set('is_cover_photo', 0);
+        $this->db->set('cover_photo_id', $new_cover_id);
         $this->db->where('photoset_id', $photoset_id);
-        $this->db->where('is_cover_photo', 1);
-        $this->db->update('assets');
-
-        //change new asset to be the cover photo
-        $this->db->set('is_cover_photo', 1);
-        $this->db->where('photoset_id', $photoset_id);
-        $this->db->where('asset_id', $new_cover_id);
-        $this->db->where('is_cover_photo', 0);
-        $this->db->update('assets');
+        $this->db->update('photosets');
     }
 }
 

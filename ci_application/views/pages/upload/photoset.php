@@ -1,4 +1,3 @@
-
 <div id="page-upload">
 	<div class="content-wrapper">
 		<div class="content-left">

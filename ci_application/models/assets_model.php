@@ -143,73 +143,9 @@ class Assets_model extends CI_Model
 		$child_asset_title    = (array) $this->input->post('child_asset_title');
 		$child_uploaded_photo = (array) $this->input->post('child_uploaded_photo');
 
-		if (empty($photoset_title))
-		{
-			$photoset_title = 'Set of ' . count($child_uploaded_photo) . ' photos';
-		}
-
-
-
-/*		// Uploaded photo
-		$uploaded_photo = $this->input->post('uploaded_photo');
-
-		// Get image width, height
-		list($width, $height) = @getimagesize('./assets/uploads/' . $uploaded_photo);
-
-		// See if asset is HD
-		if (isset($height) && $height >= 720)
-		{
-			$asset_hd = 1;
-		}
-		else
-		{
-			$asset_hd = 0;
-		}
-
-		if ($photoset_id)
-		{
-			// Add asset to the database
-			$data = array(
-				'asset_cost'    => $this->input->post('asset_cost'),
-				'asset_title'   => $photoset_title,
-			);
-
-			if (!empty($uploaded_photo))
-			{
-				$data['filename'] = $uploaded_photo;
-				$data['asset_hd'] = $asset_hd;
-			}
-
-			$this->db->where('asset_id', $photoset_id);
-			$this->db->update('assets', $data);
-		}
-		else
-		{
-			// Add asset to the database
-			$data = array(
-				'user_id'       => $this->_user->user_id,
-				'asset_type'    => 3,
-				'asset_cost'    => $this->input->post('asset_cost'),
-				'asset_title'   => $photoset_title,
-				'filename'      => $uploaded_photo,
-				'asset_hd'      => $asset_hd,
-				'asset_created' => time(),
-			);
-			$this->db->insert('assets', $data);
-
-			// Get photoset id
-			$photoset_id = $this->db->insert_id();
-		}
-
-		if (!empty($uploaded_photo))
-		{
-			// Move to AWS CDN
-			$this->aws_model->move_file('./assets/uploads/', $uploaded_photo);
-			$this->aws_model->move_file('./assets/uploads/', 'lrg-'  . strtolower($uploaded_photo));
-			$this->aws_model->move_file('./assets/uploads/', 'med-'  . strtolower($uploaded_photo));
-			$this->aws_model->move_file('./assets/uploads/', 'sml-'  . strtolower($uploaded_photo));
-			$this->aws_model->move_file('./assets/uploads/', 'tall-' . strtolower($uploaded_photo));
-		}*/
+		if (empty($photoset_title)) {
+            $photoset_title = 'Set of ' . count($child_uploaded_photo) . ' photos';
+        }
 
         if ($photoset_id)
         {
@@ -220,10 +156,10 @@ class Assets_model extends CI_Model
             );
 
             $this->db->where('photoset_id', $photoset_id);
-            $this->db->update('assets', $data);
+            $this->db->update('photosets', $data);
         }
 
-        $uploaded_photos_ids = array();
+        $counter = 1;
 		foreach ($child_uploaded_photo as $key => $child_photo)
 		{
 			if (!empty($child_photo))
@@ -244,6 +180,20 @@ class Assets_model extends CI_Model
 					$asset_hd = 0;
 				}
 
+                if ($counter == 1)
+                {
+                    // Add asset to the database
+                    $data = array(
+                        'user_id'       => $this->_user->user_id,
+                        'asset_cost'    => $this->input->post('asset_cost'),
+                        'asset_title'   => $photoset_title,
+                        'asset_created' => time(),
+                    );
+                    $this->db->insert('photosets', $data);
+
+                    $photoset_id = $this->db->insert_id();
+                }
+
 				// Add asset to the database
 				$data = array(
 					'user_id'       => $this->_user->user_id,
@@ -256,7 +206,17 @@ class Assets_model extends CI_Model
 				);
 				$this->db->insert('assets', $data);
 
-                array_push($uploaded_photos_ids, $this->db->insert_id());
+                //default cover photo
+                if ($counter == 1)
+                {
+                    $data = array(
+                        'cover_photo_id' => $this->db->insert_id(),
+                    );
+                    $this->db->where('photoset_id', $photoset_id);
+                    $this->db->update('photosets', $data);
+                }
+
+
 
 				// Move to AWS CDN
 				$this->aws_model->move_file('./assets/uploads/', $child_photo);
@@ -265,23 +225,8 @@ class Assets_model extends CI_Model
 				$this->aws_model->move_file('./assets/uploads/', 'sml-'  . strtolower($child_photo));
 				$this->aws_model->move_file('./assets/uploads/', 'tall-' . strtolower($child_photo));
 			}
+            $counter++;
 		}
-
-        //loop over list of collected IDs in order to set the photoset ID of them, as well as set the first as the default cover photo
-        foreach ($uploaded_photos_ids as $index => $id)
-        {
-            $is_cover_photo = 0;
-
-            if ($index == 0) {
-                $photoset_id = $id;
-                $is_cover_photo = 1;
-            }
-
-            $this->db->set('photoset_id', $photoset_id);
-            $this->db->set('is_cover_photo', $is_cover_photo);
-            $this->db->where('asset_id', $id);
-            $this->db->update('assets');
-        }
 	}
 
 	/**
@@ -536,25 +481,23 @@ class Assets_model extends CI_Model
      */
     public function get_photoset($photoset_id)
     {
-        $this->db->from('assets');
-        $this->db->where('photoset_id', $photoset_id);
-        $this->db->where('is_cover_photo', 1);
+        $this->db->select('asset_id, filename, photosets.photoset_id as photoset_id, photosets.asset_cost as asset_cost, photosets.asset_title as asset_title, cover_photo_id');
+        $this->db->from('photosets');
+        $this->db->join('assets', 'assets.asset_id = photosets.cover_photo_id');
+        $this->db->where('photosets.photoset_id', $photoset_id);
         $query = $this->db->get();
         $row   = $query->row();
 
         if ($row)
         {
-            if ($row->asset_type == 3 || $row->asset_type == 4)
-            {
-                // Get sub photos
-                $this->db->from('assets');
-                $this->db->where('photoset_id', $photoset_id);
-                $this->db->where('is_cover_photo', 0);
-                $this->db->order_by('asset_id', 'asc');
-                $query = $this->db->get();
+            // Get sub photos
+            $this->db->from('assets');
+            $this->db->where('photoset_id', $photoset_id);
+            $this->db->where('asset_id !=', $row->cover_photo_id);
+            $this->db->order_by('asset_id', 'asc');
+            $query = $this->db->get();
 
-                $row->photos = $query->result();
-            }
+            $row->photos = $query->result();
         }
 
         return $row;
