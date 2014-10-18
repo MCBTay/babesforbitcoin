@@ -547,6 +547,38 @@ class Models_model extends CI_Model
 		return $assets;
 	}
 
+    public function get_photoset($photoset_id)
+    {
+        $this->db->select('photosets.photoset_id, photosets.user_id, photosets.cover_photo_id, photosets.asset_cost, photosets.asset_title, photosets.deleted, photosets.approved, photosets.asset_created, filename, asset_id, asset_type');
+        $this->db->from('photosets');
+        $this->db->join('assets', 'photosets.cover_photo_id = assets.asset_id');
+        $this->db->where('photosets.photoset_id', $photoset_id);
+        $this->db->where('photosets.deleted', 0);
+
+        $query  = $this->db->get();
+        $photoset = $query->row();
+
+        if ($photoset)
+        {
+            // Exchange USD to BTC
+            $photoset->asset_cost_btc = $this->cart_model->usd_to_btc($photoset->asset_cost);
+
+            // See if asset owned by user
+            $this->db->from('users_purchases');
+            $this->db->where('user_id', $this->_user->user_id);
+            $this->db->where('asset_id', $photoset->photoset_id);
+            $query = $this->db->get();
+            $row   = $query->row();
+            $photoset->owned = $row ? 1 : 0;
+
+            $photos = $this->get_photosets_photos($photoset->photoset_id);
+            $count = count($photos) + 1;
+            $photoset->asset_extra = 'Number of photos: ' . $count;
+        }
+
+        return $photoset;
+    }
+
     /**
      * Get photosets
      *

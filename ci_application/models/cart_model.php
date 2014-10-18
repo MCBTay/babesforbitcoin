@@ -38,12 +38,21 @@ class Cart_model extends CI_Model
 		{
 			foreach ($assets as $asset)
 			{
-				$item = $this->models_model->get_asset($asset);
+                // check if it's a photoset first
+                $photoset = $this->models_model->get_photoset($asset);
 
-				if ($item)
-				{
-					$return[] = $this->models_model->get_asset($asset);
-				}
+                if ($photoset)
+                {
+                    $return[] = $photoset;
+                }
+                else
+                {
+                    $item = $this->models_model->get_asset($asset);
+
+                    if ($item) {
+                        $return[] = $this->models_model->get_asset($asset);
+                    }
+                }
 			}
 		}
 

@@ -23,7 +23,7 @@
 					</div>
 					<div class="panel-photo-offline text-center"><?php echo $asset->asset_title; ?></div>
 					<div class="panel-photo-details text-center">$<?php echo $asset->asset_cost; ?> | &#579;<?php echo $asset->asset_cost_btc; ?></div>
-					<a class="button" href="<?php echo base_url(); ?>cart/remove/<?php echo $asset->asset_id; ?>">Remove from cart</a>
+					<a class="button" href="<?php echo base_url(); ?>cart/remove/<?php if ($asset->asset_type = 3 || $asset->asset_type = 4) { echo $asset->photoset_id; } else { echo $asset->asset_id; } ?>">Remove from cart</a>
 				</div>
 			<?php endforeach; ?>
 			<div class="clearfix"></div>
