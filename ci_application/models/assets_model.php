@@ -559,6 +559,36 @@ class Assets_model extends CI_Model
 
         return $row;
     }
+
+    /**
+     * Get User Photosets
+     *
+     * Get user's photosets
+     *
+     * @access public
+     * @return n/a
+     */
+    public function get_user_photosets($user_id)
+    {
+        $this->db->from('photosets');
+        $this->db->where('user_id', $user_id);
+        $query = $this->db->get();
+        $row   = $query->row();
+
+        if ($row)
+        {
+            // Get sub photos
+            $this->db->from('assets');
+            $this->db->where('photoset_id', $user_id);
+            $this->db->where('is_cover_photo', 0);
+            $this->db->order_by('asset_id', 'asc');
+            $query = $this->db->get();
+
+            $row->photos = $query->result();
+        }
+
+        return $row;
+    }
 }
 
 /* End of file assets_model.php */

@@ -85,45 +85,48 @@
 				</div>
 				<h3>Photosets</h3>
 				<div>
-					<?php foreach ($photosets as $asset): ?>
-						<?php if ($asset->approved || !isset($send)): ?>
-							<div class="clearfix"></div>
-							<h3 style="margin-top: 0;"><?php echo $asset->asset_title; ?></h3>
-							<?php if (!$asset->approved): ?>
-								<p class="legal">This photoset will need to be approved before you can share/sell it.</p>
-							<?php endif; ?>
-							<?php if (!isset($send)): ?>
-								<p class="legal">If you wish to delete this photoset, please <a href="<?php echo base_url(); ?>contact/delete_photoset/<?php echo $asset->asset_id; ?>" style="color: #c3c3c3;">click here</a>.</p>
-								<div class="manage-asset">
-									<?php if (empty($asset->filename)): ?>
-										<a class="button" href="<?php echo base_url(); ?>upload/photoset/<?php echo $asset->asset_id; ?>">Add Cover Photo</a>
-									<?php endif; ?>
-									<a class="button" href="<?php echo base_url(); ?>upload/photoset/<?php echo $asset->photoset_id; ?>">Edit Set</a>
-								</div>
-							<?php endif; ?>
-							<div class="panel-photo">
-                                <?php if ($asset->is_cover_photo): ?>
-                                    <a class="fancybox" rel="photoset<?php echo $asset->asset_id; ?>" href="<?php echo !empty($asset->filename) ? CDN_URL . $asset->filename : base_url() . 'assets/img/no-photo.png'; ?>">
-                                        <div class="watermark-wrap">
-                                            <img alt="<?php echo $asset->asset_title; ?>" src="<?php echo !empty($asset->filename) ? CDN_URL . 'sml-' . strtolower($asset->filename) : base_url() . 'assets/img/no-photo.png'; ?>" width="170" height="170">
-                                            <?php if ($asset->asset_hd): ?>
-                                                <div class="watermark-hd"></div>
-                                            <?php endif; ?>
-                                        </div>
-                                    </a>
-                                <?php endif; ?>
-								<?php if (isset($send)): ?>
-									<div class="panel-photo-offline text-center">Includes entire set</div>
-									<a class="button send-contrib" id="send-contrib<?php echo $asset->asset_id; ?>" href="<?php echo base_url(); ?>maange-my-files/send/<?php echo $asset->asset_id; ?>">Send to Fan</a>
-								<?php else: ?>
-									<div class="panel-photo-offline text-center"><?php if ($asset->approved): ?><span class="unapproved">*</span><?php endif; ?><?php echo $asset->asset_title; ?></div>
-									<div class="panel-photo-details text-center">$<?php echo $asset->asset_cost; ?> | &#579;<?php echo $asset->asset_cost_btc; ?></div>
-								<?php endif; ?>
-							</div>
-							<?php foreach ($asset->photos as $photo): ?>
-                                <?php if (!$photo->is_cover_photo): ?>
+					<?php foreach ($photosets as $photoset): ?>
+                        <?php if ($photoset->approved || !isset($send)): ?>
+                            <div class="clearfix"></div>
+                            <h3 style="margin-top: 0;"><?php echo $photoset->asset_title; ?></h3>
+                            <?php if (!$photoset->approved): ?>
+                                <p class="legal">This photoset will need to be approved before you can share/sell it.</p>
+                            <?php endif; ?>
+                            <?php if (!isset($send)): ?>
+                                <p class="legal">If you wish to delete this photoset, please <a href="<?php echo base_url(); ?>contact/delete_photoset/<?php echo $photoset->asset_id; ?>" style="color: #c3c3c3;">click here</a>.</p>
+                                <div class="manage-asset">
+                                    <a class="button" href="<?php echo base_url(); ?>upload/photoset/<?php echo $photoset->photoset_id; ?>">Edit Set</a>
+                                </div>
+                            <?php endif; ?>
+                            <div class="panel-photo">
+
+                                <?php foreach ($photoset->photos as $photo): ?>
+                                    <?php if ($photo->asset_id == $photoset->cover_photo_id): ?>
+                                        <a class="fancybox" rel="photoset<?php echo $photo->asset_id; ?>" href="<?php echo !empty($photo->filename) ? CDN_URL . $photo->filename : base_url() . 'assets/img/no-photo.png'; ?>">
+                                            <div class="watermark-wrap">
+                                                <img alt="<?php echo $photo->asset_title; ?>" src="<?php echo !empty($photo->filename) ? CDN_URL . 'sml-' . strtolower($photo->filename) : base_url() . 'assets/img/no-photo.png'; ?>" width="170" height="170">
+                                                <?php if ($photo->asset_hd): ?>
+                                                    <div class="watermark-hd"></div>
+                                                <?php endif; ?>
+                                            </div>
+                                        </a>
+                                        <?php if (isset($send)): ?>
+                                            <div class="panel-photo-offline text-center">Includes entire set</div>
+                                            <a class="button send-contrib" id="send-contrib<?php echo $photo->asset_id; ?>" href="<?php echo base_url(); ?>maange-my-files/send/<?php echo $photo->asset_id; ?>">Send to Fan</a>
+                                        <?php else: ?>
+                                            <div class="panel-photo-offline text-center"><?php if ($photo->approved): ?><span class="unapproved">*</span><?php endif; ?><?php echo $photo->asset_title; ?></div>
+                                            <div class="panel-photo-details text-center">$<?php echo $photo->asset_cost; ?> | &#579;<?php echo $photo->asset_cost_btc; ?></div>
+                                        <?php endif; ?>
+                                    <?php endif; ?>
+
+                                <?php endforeach; ?>
+
+                            </div>
+
+                            <?php foreach ($photoset->photos as $photo): ?>
+                                <?php if ($photo->asset_id != $photoset->cover_photo_id): ?>
                                     <div class="panel-photo">
-                                        <a class="fancybox" rel="photoset<?php echo $asset->asset_id; ?>" href="<?php echo !empty($photo->filename) ? CDN_URL . $photo->filename : base_url() . 'assets/img/no-photo.png'; ?>">
+                                        <a class="fancybox" rel="photoset<?php echo $photo->asset_id; ?>" href="<?php echo !empty($photo->filename) ? CDN_URL . $photo->filename : base_url() . 'assets/img/no-photo.png'; ?>">
                                             <div class="watermark-wrap">
                                                 <img alt="<?php echo $photo->asset_title; ?>" src="<?php echo !empty($photo->filename) ? CDN_URL . 'sml-' . strtolower($photo->filename) : base_url() . 'assets/img/no-photo.png'; ?>" width="170" height="170">
                                                 <?php if ($photo->asset_hd): ?>
@@ -133,15 +136,15 @@
                                         </a>
                                         <div class="panel-photo-offline text-center">&nbsp;</div>
                                         <?php if (isset($send)): ?>
-                                            <a class="button send-contrib sub-send-contrib<?php echo $asset->asset_id; ?>" id="send-contrib<?php echo $photo->asset_id; ?>" href="<?php echo base_url(); ?>manage-my-files/send/<?php echo $photo->asset_id; ?>">Send to Fan</a>
+                                            <a class="button send-contrib sub-send-contrib<?php echo $photo->asset_id; ?>" id="send-contrib<?php echo $photo->asset_id; ?>" href="<?php echo base_url(); ?>manage-my-files/send/<?php echo $asset->asset_id; ?>">Send to Fan</a>
                                         <?php else: ?>
                                             <div class="panel-photo-details text-center">&nbsp;</div>
                                         <?php endif; ?>
                                     </div>
                                 <?php endif; ?>
-							<?php endforeach; ?>
-						<?php endif; ?>
-					<?php endforeach; ?>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
 					<?php if (!$photosets): ?>
 						<p>No photosets found.</p>
 					<?php endif; ?>

@@ -26,49 +26,51 @@
 			*/ ?>
 		</div>
 		<div class="content-right content-right-large copy">
-			<?php foreach ($assets as $key => $asset): ?>
-				<?php echo $key % 4 ? '' : '<div class="clearfix"></div>'; ?>
-				<?php if ($asset->asset_type == 1): ?>
-					<div class="panel-photo">
-						<a class="fancybox" rel="group" href="<?php echo !empty($asset->filename) ? CDN_URL . $asset->filename : base_url() . 'assets/img/no-photo.png'; ?>">
-							<div class="watermark-wrap">
-								<img alt="<?php echo $asset->asset_title; ?>" src="<?php echo !empty($asset->filename) ? CDN_URL . 'sml-' . strtolower($asset->filename) : base_url() . 'assets/img/no-photo.png'; ?>" width="170" height="170">
-								<?php if ($asset->asset_hd): ?>
-									<div class="watermark-hd"></div>
-								<?php endif; ?>
-							</div>
-						</a>
-					</div>
-				<?php else: ?>
-					<div class="panel-photo">
-						<div class="watermark-wrap">
-							<img alt="<?php echo $asset->asset_title; ?>" src="<?php echo !empty($asset->filename) ? CDN_URL . 'sml-' . strtolower($asset->filename) : base_url() . 'assets/img/no-photo.png'; ?>" width="170" height="170">
-							<?php if ($asset->asset_type == 5): ?>
-								<div class="watermark-hd<?php echo $asset->asset_hd ? ' watermark-hd-video' : ' watermark-video'; ?>"></div>
-							<?php elseif ($asset->asset_hd): ?>
-								<div class="watermark-hd"></div>
-							<?php endif; ?>
-						</div>
-						<?php if ($asset->asset_type == 3 || $asset->asset_type == 5): ?>
-							<div class="panel-photo-offline text-center"><?php echo $asset->asset_title; ?></div>
-						<?php endif; ?>
-						<?php if (isset($asset->asset_extra) && !empty($asset->asset_extra)): ?>
-							<div class="panel-photo-details text-center"><?php echo $asset->asset_extra; ?></div>
-						<?php else: ?>
-							<div class="panel-photo-details text-center">&nbsp;</div>
-						<?php endif; ?>
-						<div class="panel-photo-details text-center">$<?php echo $asset->asset_cost; ?> | &#579;<?php echo $asset->asset_cost_btc; ?></div>
-						<?php if ($asset->owned): ?>
-							<a class="button" href="<?php echo base_url(); ?>my-files/model/<?php echo $asset->user_id; ?><?php echo $asset->asset_type == 5 ? '/videos' : ''; ?>"><?php echo $asset->asset_type == 5 ? 'Open Video' : 'View Photos'; ?></a>
-						<?php else: ?>
-							<a class="button" href="<?php echo base_url(); ?>cart/add/<?php echo $asset->asset_id; ?>">Buy</a>
-							<?php /*
-							<a class="button" href="<?php echo base_url(); ?>wishlist">Add to Wishlist</a>
-							*/ ?>
-						<?php endif; ?>
-					</div>
-				<?php endif; ?>
-			<?php endforeach; ?>
+            <?php if ($asset_type != 3): ?>
+                <?php foreach ($assets as $key => $asset): ?>
+                    <?php echo $key % 4 ? '' : '<div class="clearfix"></div>'; ?>
+                    <?php if ($asset->asset_type == 1): ?>
+                        <div class="panel-photo">
+                            <a class="fancybox" rel="group" href="<?php echo !empty($asset->filename) ? CDN_URL . $asset->filename : base_url() . 'assets/img/no-photo.png'; ?>">
+                                <div class="watermark-wrap">
+                                    <img alt="<?php echo $asset->asset_title; ?>" src="<?php echo !empty($asset->filename) ? CDN_URL . 'sml-' . strtolower($asset->filename) : base_url() . 'assets/img/no-photo.png'; ?>" width="170" height="170">
+                                    <?php if ($asset->asset_hd): ?>
+                                        <div class="watermark-hd"></div>
+                                    <?php endif; ?>
+                                </div>
+                            </a>
+                        </div>
+                    <?php else: ?>
+                        <div class="panel-photo">
+                            <div class="watermark-wrap">
+                                <img alt="<?php echo $asset->asset_title; ?>" src="<?php echo !empty($asset->filename) ? CDN_URL . 'sml-' . strtolower($asset->filename) : base_url() . 'assets/img/no-photo.png'; ?>" width="170" height="170">
+                                <?php if ($asset->asset_type == 5): ?>
+                                    <div class="watermark-hd<?php echo $asset->asset_hd ? ' watermark-hd-video' : ' watermark-video'; ?>"></div>
+                                <?php elseif ($asset->asset_hd): ?>
+                                    <div class="watermark-hd"></div>
+                                <?php endif; ?>
+                            </div>
+                            <?php if ($asset->asset_type == 3 || $asset->asset_type == 5): ?>
+                                <div class="panel-photo-offline text-center"><?php echo $asset->asset_title; ?></div>
+                            <?php endif; ?>
+                            <?php if (isset($asset->asset_extra) && !empty($asset->asset_extra)): ?>
+                                <div class="panel-photo-details text-center"><?php echo $asset->asset_extra; ?></div>
+                            <?php else: ?>
+                                <div class="panel-photo-details text-center">&nbsp;</div>
+                            <?php endif; ?>
+                            <div class="panel-photo-details text-center">$<?php echo $asset->asset_cost; ?> | &#579;<?php echo $asset->asset_cost_btc; ?></div>
+                            <?php if ($asset->owned): ?>
+                                <a class="button" href="<?php echo base_url(); ?>my-files/model/<?php echo $asset->user_id; ?><?php echo $asset->asset_type == 5 ? '/videos' : ''; ?>"><?php echo $asset->asset_type == 5 ? 'Open Video' : 'View Photos'; ?></a>
+                            <?php else: ?>
+                                <a class="button" href="<?php echo base_url(); ?>cart/add/<?php echo $asset->asset_id; ?>">Buy</a>
+                                <?php /*
+                                <a class="button" href="<?php echo base_url(); ?>wishlist">Add to Wishlist</a>
+                                */ ?>
+                            <?php endif; ?>
+                        </div>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+            <?php endif; ?>
 		</div>
 		<div class="clearfix"></div>
 	</div>

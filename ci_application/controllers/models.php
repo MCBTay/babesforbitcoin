@@ -168,12 +168,13 @@ class Models extends CI_Controller
 			'model'  => $model,
 			'assets' => $assets,
 			'owned'  => $this->contributors_model->get_owned($model_id),
+            'type'   => $asset_type,
 		);
 
 		// Load views
 		$this->load->view('templates/header',     $data);
 		$this->load->view('templates/navigation', $data);
-		$this->load->view('pages/models/assets',  $data);
+        $this->load->view('pages/models/assets',  $data);
 		$this->load->view('templates/footer-nav', $data);
 		$this->load->view('templates/footer',     $data);
 	}

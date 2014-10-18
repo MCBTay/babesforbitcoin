@@ -50,3 +50,4 @@
 	</div>
 	<div class="clearfix"></div>
 </div>
+<img src="<?php echo base_url(); ?>/assets/img/photoset_maint_banner.png" style="margin-left: auto; width: 100%; margin-right: auto; padding: 0px; margin-top: 20px;">

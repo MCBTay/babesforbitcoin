@@ -337,20 +337,15 @@ class Models_model extends CI_Model
 
 		if ($model)
 		{
-			// Get assets
-			$this->db->from('assets');
-			$this->db->where('user_id', $model_id);
-
-            //hacky workaround for no longer having asset types of 3 on new photosets
             if ($asset_type == 3)
             {
-                $where_asset_type = "(asset_type = 3 OR asset_type = 4)";
-                $this->db->where($where_asset_type);
+                //return $this->get_photosets($model_id);
             }
-            else
-            {
-                $this->db->where('asset_type', $asset_type);
-            }
+
+            $this->db->from('assets');
+            $this->db->where('asset_type', $asset_type);
+
+			$this->db->where('user_id', $model_id);
 
             $this->db->where('deleted', 0);
 			if (!$model->trusted)
@@ -557,6 +552,63 @@ class Models_model extends CI_Model
 		return $assets;
 	}
 
+    /**
+     * Get photosets
+     *
+     * Get photosets for a particular model from database
+     *
+     * @access public
+     * @return object
+     */
+    public function get_photosets($model_id)
+    {
+        // Get photosets
+        $this->db->from('photosets');
+        $this->db->where('user_id', $model_id);
+        $this->db->where('deleted', 0);
+        $this->db->order_by('photoset_id', 'desc');
+        $query  = $this->db->get();
+
+        $photosets = $query->result();
+
+        foreach ($photosets as $photoset)
+        {
+            // Exchange USD to BTC
+            $photoset->asset_cost_btc = $this->cart_model->usd_to_btc($photoset->asset_cost);
+
+            // Get subphotos
+            $photoset->photos = $this->get_photoset_photos($photoset->photoset_id);
+
+            $photos = count($photoset->photos) + 1;
+
+            $photoset->asset_extra = 'Number of photos: ' . $photos;
+        }
+
+        return $photosets;
+    }
+
+    /**
+     * Get photosets photos
+     *
+     * Get photosets photos fromfrom database
+     *
+     * @access public
+     * @return object
+     */
+    public function get_photosets_photos($photoset_id)
+    {
+        // Get photosets photos
+        $this->db->from('assets');
+        $this->db->where('phootset_id', $photoset_id);
+        $this->db->where('deleted', 0);
+        $this->db->where('photoset_id', $photoset_id);
+        $this->db->order_by('asset_id', 'desc');
+        $query  = $this->db->get();
+        $assets = $query->result();
+
+        return $assets;
+    }
+
 	/**
 	 * Get mine photosets
 	 *
@@ -568,30 +620,28 @@ class Models_model extends CI_Model
 	public function get_mine_photosets()
 	{
 		// Get photosets
-		$this->db->from('assets');
+        $this->db->from('photosets');
 		$this->db->where('user_id', $this->_user->user_id);
-        $where_asset_type = "(asset_type = 3 OR asset_type = 4)";
-        $this->db->where($where_asset_type);
-        $this->db->where('is_cover_photo', 1);
 		$this->db->where('deleted', 0);
-		$this->db->order_by('asset_id', 'desc');
+		$this->db->order_by('photoset_id', 'desc');
 		$query  = $this->db->get();
-		$assets = $query->result();
 
-		foreach ($assets as $asset)
+        $photosets = $query->result();
+
+		foreach ($photosets as $photoset)
 		{
 			// Exchange USD to BTC
-			$asset->asset_cost_btc = $this->cart_model->usd_to_btc($asset->asset_cost);
+            $photoset->asset_cost_btc = $this->cart_model->usd_to_btc($photoset->asset_cost);
 
 			// Get subphotos
-			$asset->photos = $this->get_mine_photosets_photos($asset->photoset_id);
+            $photoset->photos = $this->get_mine_photosets_photos($photoset->photoset_id);
 
-			$photos = count($asset->photos) + 1;
+			$photos = count($photoset->photos) + 1;
 
-			$asset->asset_extra = 'Number of photos: ' . $photos;
+            $photoset->asset_extra = 'Number of photos: ' . $photos;
 		}
 
-		return $assets;
+		return $photosets;
 	}
 
 	/**
@@ -610,7 +660,6 @@ class Models_model extends CI_Model
         $where_asset_type = "(asset_type = 3 OR asset_type = 4)";
         $this->db->where($where_asset_type);
 		$this->db->where('deleted', 0);
-        $this->db->where('is_cover_photo', 0);
 		$this->db->where('photoset_id', $photoset_id);
 		$this->db->order_by('asset_id', 'desc');
 		$query  = $this->db->get();
