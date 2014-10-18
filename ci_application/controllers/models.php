@@ -159,7 +159,14 @@ class Models extends CI_Controller
 			default: redirect();               break;
 		}
 
-		$assets = $this->models_model->get_assets($model_id, $asset_type);
+        if ($asset_type == 3)
+        {
+            $assets = $this->models_model->get_photosets($model_id);
+        }
+        else
+        {
+            $assets = $this->models_model->get_assets($model_id, $asset_type);
+        }
 
 		// Data array to be used in views
 		$data = array(
@@ -168,7 +175,7 @@ class Models extends CI_Controller
 			'model'  => $model,
 			'assets' => $assets,
 			'owned'  => $this->contributors_model->get_owned($model_id),
-            'type'   => $asset_type,
+            'asset_type'   => $asset_type,
 		);
 
 		// Load views

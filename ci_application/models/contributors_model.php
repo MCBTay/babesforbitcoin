@@ -355,12 +355,11 @@ class Contributors_model extends CI_Model
 		{
 			// Get photosets
 			$this->db->from('users_purchases');
-			$this->db->join('assets', 'assets.asset_id = users_purchases.asset_id');
-			$this->db->where('assets.asset_type', 3);
+			$this->db->join('photosets', 'photosets.photoset_id = users_purchases.asset_id');
 			$this->db->where('users_purchases.user_id', $this->_user->user_id);
 			if ($model_id)
 			{
-				$this->db->where('assets.user_id', $model_id);
+				$this->db->where('photosets.user_id', $model_id);
 			}
 			$this->db->order_by('users_purchases.purchase_created', 'desc');
 			$query  = $this->db->get();
@@ -378,7 +377,7 @@ class Contributors_model extends CI_Model
 				$asset->user = $this->user_model->get_user($asset->user_id);
 
 				// Get subphotos
-				$asset->photos = $this->get_purchased_photosets_photos($asset->asset_id);
+				$asset->photos = $this->get_purchased_photosets_photos($asset->photoset_id);
 
 				// Add in the amount of sub photos if photoset
 				$photos = count($asset->photos) + 1;
@@ -401,7 +400,6 @@ class Contributors_model extends CI_Model
 	{
 		// Get photosets photos
 		$this->db->from('assets');
-		$this->db->where('asset_type', 4);
 		$this->db->where('photoset_id', $photoset_id);
 		$this->db->order_by('asset_id', 'desc');
 		$query  = $this->db->get();
@@ -587,26 +585,30 @@ class Contributors_model extends CI_Model
 
 		$this->db->from('users_purchases');
 		$this->db->join('assets', 'assets.asset_id = users_purchases.asset_id');
-		$this->db->where_in('assets.asset_type', array(2, 3, 4));
+		$this->db->where('assets.asset_type', 2);
 		$this->db->where('users_purchases.user_id', $this->_user->user_id);
 		$this->db->where('assets.user_id', $model_id);
 		$this->db->order_by('users_purchases.purchase_created', 'desc');
 		$query  = $this->db->get();
 		$assets = $query->result();
 
-		foreach ($assets as $asset)
-		{
-			$total++;
+        $total = count($assets);
 
-			// If photoset
-			if ($asset->asset_type == 3)
-			{
-				// Count sub photos as well
-				$photos = $this->get_purchased_photosets_photos($asset->asset_id);
+        $this->db->from('users_purchases');
+        $this->db->join('photosets', 'users_purchases.asset_id = photosets.photoset_id');
+        $this->db->where('users_purchases.user_id', $this->_user->user_id);
+        $this->db->where('photosets.user_id', $model_id);
+        $this->db->order_by('users_purchases.purchase_created', 'desc');
+        $query  = $this->db->get();
+        $photosets = $query->result();
 
-				$total += count($photos);
-			}
-		}
+        foreach ($photosets as $photoset)
+        {
+            $total++;
+
+            $photos = $this->get_purchased_photosets_photos($photoset->asset_id);
+            $total += count($photos);
+        };
 
 		return $total;
 	}

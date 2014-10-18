@@ -420,7 +420,6 @@ class Assets_model extends CI_Model
 				$this->db->from('assets');
 				$this->db->where('photoset_id', $asset_id);
 				$this->db->where('user_id', $this->_user->user_id);
-                $this->db->where('is_cover_photo', 0);
 				$this->db->order_by('asset_id', 'asc');
 				$query = $this->db->get();
 				$row->photos = $query->result();
@@ -430,6 +429,28 @@ class Assets_model extends CI_Model
 				$row->mimetype = $this->get_mimetype($row->video);
 			}
 		}
+        else
+        {
+            $this->db->from('photosets');
+            $this->db->where('photoset_id', $asset_id);
+            $this->db->where('user_id', $this->_user->user_id);
+            $query = $this->db->get();
+            $row = $query->row();
+
+            if ($row)
+            {
+                // Get sub photos
+                $this->db->from('assets');
+                $this->db->where('photoset_id', $row->photoset_id);
+                $this->db->where('user_id', $this->_user->user_id);
+                $this->db->order_by('asset_id', 'asc');
+                $query = $this->db->get();
+                $row->photos = $query->result();
+            }
+
+
+
+        }
 
 		return $row;
 	}

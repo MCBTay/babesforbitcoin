@@ -96,7 +96,7 @@ class Contact extends CI_Controller
 	 */
 	public function delete_photoset($photoset_id)
 	{
-		$asset = $this->assets_model->get_asset($photoset_id);
+        $asset = $this->assets_model->get_photoset($photoset_id);
 
 		if (!$asset)
 		{

@@ -77,6 +77,7 @@
 								<div class="watermark-hd"></div>
 							<?php endif; ?>
 						</div>
+
 						<div class="panel-photo-<?php echo $model->online ? 'online' : 'offline'; ?>"><?php echo $model->display_name; ?></div>
 						<div class="panel-photo-details"><?php echo $model->owned_photos; ?> Photos | <?php echo $model->owned_videos; ?> Videos</div>
 					</div>

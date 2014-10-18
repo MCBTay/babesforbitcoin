@@ -322,6 +322,7 @@ class Stats_model extends CI_Model
         if ($user_id)
         {
             $this->db->join('assets', 'assets.asset_id = users_purchases.asset_id');
+            $this->db->join('photosets', 'photosets.photoset_id = users_purchases.asset_id');
             $this->db->where('assets.user_id', $user_id);
         }
 
