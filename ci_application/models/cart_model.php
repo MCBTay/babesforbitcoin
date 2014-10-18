@@ -198,8 +198,13 @@ class Cart_model extends CI_Model
 					$this->db->update('users');
 
 					// Data for users purchases table
+                    $asset_id = $asset->asset_id;
+
+                    if ($asset->photoset_id != 0)
+                        $asset_id = $asset->photoset_id;
+
 					$data = array(
-						'asset_id'           => $asset->asset_id,
+						'asset_id'           => $asset_id,
 						'user_id'            => $this->_user->user_id,
 						'purchase_price'     => $asset->asset_cost,
 						'purchase_price_usd' => $asset->asset_cost,
