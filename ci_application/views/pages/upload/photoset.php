@@ -15,8 +15,8 @@
 							<div class="alert alert-danger">
 								<strong>Warning:</strong> Please fix any errors noted below.
 							</div>
-                        <?php else: ?>
-                            <?php echo $success; ?>
+                        <?php endif; ?>
+                        <?php if ($this->session->flashdata('post_successful')): ?>
                             <div class="alert alert-danger">
                                 <strong>Success:</strong> Your photoset has been saved.
                             </div>
@@ -44,7 +44,8 @@
 								<div class="asset-upload">
 									<?php if (isset($cover_photo)): ?>
                                         <label for="cover_photo">Cover Photo:</label>
-										<div class="upload-preview-static"><?php echo $cover_photo; ?></div>
+
+										<div class="upload-preview-static"><?php echo $cover_photo?></div>
 									<?php elseif (isset($asset) && !empty($asset->filename)): ?>
                                         <label for="cover_photo">Cover Photo:</label>
                                         <div class="upload-preview-static">
@@ -58,8 +59,10 @@
 										<?php if (isset($asset) && isset($asset->photos)): ?>
                                             <?php $counter = 1; ?>
 											<?php foreach ($asset->photos as $photo): ?>
-												<img src="<?php echo CDN_URL . $photo->filename; ?>" width="536" class="<?php if ($counter == 1) echo 'first'; ?>">
-                                                <button type="submit" class="button" name="change_cover_photo" value="<?php echo $photo->asset_id; ?>">Make Cover Photo</button>
+                                                <?php if ($photo->asset_id != $asset->cover_photo_id): ?>
+                                                    <img src="<?php echo CDN_URL . $photo->filename; ?>" width="536" class="<?php if ($counter == 1) echo 'first'; ?>">
+                                                    <button type="submit" class="button" name="change_cover_photo" value="<?php echo $photo->asset_id; ?>">Make Cover Photo</button>
+                                                <?php endif; ?>
                                                 <?php $counter ++; ?>
 											<?php endforeach; ?>
 										<?php endif; ?>

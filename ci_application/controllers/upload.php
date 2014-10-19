@@ -196,6 +196,9 @@ class Upload extends CI_Controller
             $asset = $this->assets_model->get_photoset($asset_id);
 
 			$data['asset'] = $asset;
+
+            $cover_photo = $this->assets_model->get_photoset_cover($asset_id);
+            $data['cover_photo'] = '<img src="' . CDN_URL . $cover_photo->filename . '" width="536">';
 		}
 
 		// Set validation error delimiters
@@ -230,6 +233,9 @@ class Upload extends CI_Controller
                 if (count($new_cover_id) == 1)
                 {
                     $this->models_model->change_cover_photo($asset_id, $new_cover_id);
+
+                    $this->session->set_flashdata('post_successful', true);
+
                     redirect('upload/photoset/'. $asset_id);
                 }
 

@@ -112,10 +112,10 @@
                                         </a>
                                         <?php if (isset($send)): ?>
                                             <div class="panel-photo-offline text-center">Includes entire set</div>
-                                            <a class="button send-contrib" id="send-contrib<?php echo $photo->asset_id; ?>" href="<?php echo base_url(); ?>maange-my-files/send/<?php echo $photo->asset_id; ?>">Send to Fan</a>
+                                            <a class="button send-contrib" id="send-contrib<?php echo $photoset->asset_id; ?>" href="<?php echo base_url(); ?>maange-my-files/send/<?php echo $photo->asset_id; ?>">Send to Fan</a>
                                         <?php else: ?>
-                                            <div class="panel-photo-offline text-center"><?php if ($photo->approved): ?><span class="unapproved">*</span><?php endif; ?><?php echo $photo->asset_title; ?></div>
-                                            <div class="panel-photo-details text-center">$<?php echo $photo->asset_cost; ?> | &#579;<?php echo $photo->asset_cost_btc; ?></div>
+                                            <div class="panel-photo-offline text-center"><?php if ($photoset->approved): ?><span class="unapproved">*</span><?php endif; ?><?php echo $photoset->asset_title; ?></div>
+                                            <div class="panel-photo-details text-center">$<?php echo $photoset->asset_cost; ?> | &#579;<?php echo $photoset->asset_cost_btc; ?></div>
                                         <?php endif; ?>
                                     <?php endif; ?>
 
