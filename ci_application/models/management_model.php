@@ -559,7 +559,6 @@ class Management_model extends CI_Model
 		foreach ($result as $row)
 		{
 			// Add one to created for this asset_type
-            if ($row->asset_type == 3)
 			$stats[$row->asset_type]->created += 1;
 
 			// If this is the first one of this asset type
@@ -590,6 +589,49 @@ class Management_model extends CI_Model
 				$stats[$row->asset_type]->deleted += 1;
 			}
 		}
+
+        //get photoset stats
+        $this->db->from('photosets');
+        $this->db->where('user_id', $user_id);
+        $this->db->order_by('photoset_id', 'asc');
+        $query  = $this->db->get();
+        $result = $query->result();
+
+        $stats[3] = (object) $default;
+        // Loop through the assets
+        foreach ($result as $row)
+        {
+            // Add one to created for this asset_type
+            $stats[3]->created += 1;
+
+            // If this is the first one of this asset type
+            if ($stats[3]->created == 1)
+            {
+                // Add date to since
+                $stats[3]->since = $row->asset_created;
+            }
+
+            // If awaiting approval
+            if (!$row->approved)
+            {
+                // Add one to awaiting
+                $stats[3]->awaiting += 1;
+            }
+
+            // If approved
+            if ($row->approved)
+            {
+                // Add one to approved
+                $stats[3]->approved += 1;
+            }
+
+            // If deleted
+            if ($row->deleted)
+            {
+                // Add one to deleted
+                $stats[3]->deleted += 1;
+            }
+        }
 
 		return $stats;
 	}
@@ -1112,6 +1154,11 @@ class Management_model extends CI_Model
                 'approved'    => (int) $this->input->post('approved'),
                 'approved_by' => $data['approved_by'],
                 'approved_on' => $data['approved_on'],
+                'asset_title' => $this->input->post('asset_title'),
+                'asset_cost'  => $this->input->post('asset_cost'),
+                'deleted'     => (int) $this->input->post('deleted'),
+                'approved'    => (int) $this->input->post('approved'),
+                'asset_hd'    => (int) $this->input->post('asset_hd'),
             );
 
             $this->db->where('photoset_id', $this->uri->segment(5));
