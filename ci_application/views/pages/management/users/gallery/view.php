@@ -1,4 +1,3 @@
-
 		<div class="page-header">
 			<h2><?php echo $user->display_name ? $user->display_name : 'User # ' . $user->user_id; ?>'s <?php echo $category; ?>s</h2>
 		</div>
@@ -19,8 +18,16 @@
 					<?php endif; ?>
 					<div class="col-xs-6 col-sm-3">
 						<div class="thumbnail">
-							<a href="<?php echo base_url(); ?>management/assets/edit/<?php echo $asset->asset_id; ?>">
-								<img alt="<?php echo $asset->asset_title; ?>" src="<?php echo $asset->filename ? CDN_URL . 'sml-' . strtolower($asset->filename) : base_url() . 'assets/img/no-photo.png'; ?>">
+							<a href="<?php echo base_url(); ?>management/assets/edit/<?php if ($asset->asset_id) { echo $asset->asset_id; } else { echo 'photoset/' . $asset->photoset_id; } ?>">
+                                <?php
+                                    $file_to_display = null;
+                                    if ($asset->cover_photo) {
+                                        $file_to_display = $asset->cover_photo->filename;
+                                    } else {
+                                        $file_to_display = $asset->filename;
+                                    }
+                                ?>
+								<img alt="<?php $asset->asset_title; ?>" src="<?php echo $file_to_display ? CDN_URL . 'sml-' . strtolower($file_to_display) : base_url() . 'assets/img/no-photo.png'; ?>">
 							</a>
 							<div class="caption">
 								<h3 class="thumbnail-title"><?php echo $asset->asset_title; ?></h3>
@@ -43,7 +50,7 @@
 									<?php endif; ?>
 								</p>
 								<p class="thumbnail-cta">
-									<a href="<?php echo base_url(); ?>management/assets/edit/<?php if ($asset->asset_type == 3 || $asset->asset_type == 4) { echo $asset->photoset_id; } else { echo $asset->asset_id; } ?>" class="btn btn-primary" role="button">Edit</a>
+									<a href="<?php echo base_url(); ?>management/assets/edit/<?php if ($asset->asset_id) { echo $asset->asset_id; } else { echo 'photoset/' . $asset->photoset_id; } ?>" class="btn btn-primary" role="button">Edit</a>
 									<?php if ($asset->approved == 0 && ($asset->asset_type == 1 || $asset->asset_type == 2)): ?>
 										&nbsp;
 										<a href="<?php echo base_url(); ?>management/users/gallery/<?php echo $asset->user_id; ?>/approve/<?php echo $asset->asset_id; ?>" class="btn btn-success" role="button">Approve</a>

@@ -1,6 +1,5 @@
-
 		<div class="page-header">
-			<h2>Edit Asset # <?php echo $asset->asset_id; ?></h2>
+			<h2>Edit Asset # <?php if ($asset->asset_type) { echo $asset->asset_id; } else { echo $asset->photoset_id; } ?></h2>
 		</div>
 		<?php if (validation_errors() != ''): ?>
 			<div class="alert alert-danger">
@@ -25,16 +24,16 @@
 			<?php endif; ?>
 		</p>
 		<?php $this->load->view('pages/management/assets/edit-form', array('asset' => $asset)); ?>
-		<?php if ($asset->is_cover_photo && ($asset->asset_type == 4 || $asset->asset_type == 3)): ?>
+		<?php if ($asset->cover_photo): ?>
 			<div class="page-header">
 				<h3>Photoset # <?php echo $asset->photoset_id; ?> Photos</h3>
 			</div>
 			<p class="marginbottomlarge">
-				<a href="<?php echo base_url(); ?>management/users/gallery/<?php echo $asset->user_id; ?>/add/4/<?php echo $asset->asset_id; ?>" class="btn btn-success" role="button">Add Photo</a>
+				<a href="<?php echo base_url(); ?>management/users/gallery/<?php echo $asset->user_id; ?>/add/4/<?php echo $asset->photoset_id; ?>" class="btn btn-success" role="button">Add Photo</a>
 			</p>
 			<div class="container-fluid">
 				<div class="row">
-					<?php foreach ($asset->subphotos as $n => $subphoto): ?>
+					<?php foreach ($asset->photos as $n => $subphoto): ?>
 						<?php if ($n % 4 == 0 && $n != 0): ?>
 							</div>
 							<div class="row">

@@ -1,8 +1,8 @@
 
-		<form action="<?php echo base_url(); ?>management/assets/edit/<?php echo $asset->asset_id; ?>" class="form-horizontal" method="post" role="form">
+		<form action="<?php echo base_url(); ?>management/assets/edit/<?php if ($asset->asset_id) { echo $asset->asset_id; } else { echo 'photoset/' . $asset->photoset_id; } ?>" class="form-horizontal" method="post" role="form">
 			<div class="panel panel-<?php echo $asset->approved ? 'success' : 'danger'; ?>">
 				<div class="panel-heading">
-					<strong>Asset</strong> # <?php echo $asset->asset_id; ?>
+					<strong>Asset</strong> # <?php if ($asset->asset_id) { echo $asset->asset_id; } else { echo $asset->photoset_id; } ?>
 					 &nbsp;
 					<strong>User</strong> # <?php echo $asset->user_id; ?> (<a href="<?php echo base_url(); ?>management/users/gallery/<?php echo $asset->user_id; ?>"><?php echo $asset->display_name; ?></a>)
 					 &nbsp; <strong>Type</strong> <?php echo $asset->asset_type_title; ?>
@@ -19,7 +19,7 @@
 							<?php endif; ?>
 						</div>
 					</div>
-					<?php if (($asset->is_cover_photo && ($asset->asset_type == 3 || $asset->asset_type == 4)) || $asset->asset_type == 5): ?>
+					<?php if (!$asset->asset_type || $asset->asset_type == 5): ?>
 						<div class="form-group<?php echo form_error('asset_cost') != '' ? ' has-error' : ''; ?> has-feedback" style="padding-top: 15px;">
 							<div class="col-sm-12">
 								<label for="asset_cost">Cost</label>
@@ -38,6 +38,11 @@
 							<div class="col-sm-12">
 								<img alt="<?php echo basename($asset->filename); ?>" src="<?php echo CDN_URL . $asset->filename; ?>" style="margin: 15px auto 5px; max-width: 100%;">
 							</div>
+                        <?php endif; ?>
+                        <?php if ($asset->cover_photo && $asset->cover_photo->filename && !$asset->video): ?>
+                            <div class="col-sm-12">
+                                <img alt="<?php echo basename($asset->cover_photo->filename); ?>" src="<?php echo CDN_URL . $asset->cover_photo->filename; ?>" style="margin: 15px auto 5px; max-width: 100%;">
+                            </div>
 						<?php endif; ?>
 						<?php if ($asset->video): ?>
 							<div class="col-sm-12" style="padding-top: 15px;">
@@ -94,14 +99,14 @@
 						</p>
 					</div>
 					<div class="pull-right">
-						<button type="button" class="btn btn-large btn-danger" data-toggle="modal" data-target="#jModal<?php echo $asset->asset_id; ?>">Delete</button>
+						<button type="button" class="btn btn-large btn-danger" data-toggle="modal" data-target="#jModal<?php if ($asset->asset_id) { echo $asset->asset_id; } else { echo $asset->photoset_id; } ?>">Delete</button>
 						&nbsp;
 						<button type="submit" class="btn btn-large btn-success">Save</button>
 					</div>
 					<div class="clearfix"></div>
 				</div>
 			</div>
-			<div class="modal fade" id="jModal<?php echo $asset->asset_id; ?>">
+			<div class="modal fade" id="jModal<?php if ($asset->asset_id) { echo $asset->asset_id; } else { echo $asset->photoset_id; }?>">
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header">
@@ -113,7 +118,7 @@
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-							<a href="<?php echo base_url(); ?>management/assets/delete/<?php echo $asset->asset_id; ?>" class="btn btn-danger" role="button">Delete</a>
+							<a href="<?php echo base_url(); ?>management/assets/delete/<?php if ($asset->asset_id) { echo $asset->asset_id; } else { echo $asset->photoset_id; } ?>" class="btn btn-danger" role="button">Delete</a>
 						</div>
 					</div>
 				</div>

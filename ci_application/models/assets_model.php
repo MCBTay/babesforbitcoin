@@ -482,10 +482,9 @@ class Assets_model extends CI_Model
      */
     public function get_photoset_cover($photoset_id)
     {
-        $this->db->from('assets');
-        $this->db->where('photoset_id', $photoset_id);
-        $this->db->where('user_id', $this->_user->user_id);
-        $this->db->where('is_cover_photo', 1);
+        $this->db->from('photosets');
+        $this->db->join('assets', 'assets.asset_id = photosets.cover_photo_id');
+        $this->db->where('photosets.photoset_id', $photoset_id);
         $query = $this->db->get();
         $row   = $query->row();
 
@@ -502,23 +501,28 @@ class Assets_model extends CI_Model
      */
     public function get_photoset($photoset_id)
     {
-        $this->db->select('asset_id, filename, photosets.photoset_id as photoset_id, photosets.asset_cost as asset_cost, photosets.asset_title as asset_title, cover_photo_id');
         $this->db->from('photosets');
-        $this->db->join('assets', 'assets.asset_id = photosets.cover_photo_id');
         $this->db->where('photosets.photoset_id', $photoset_id);
         $query = $this->db->get();
         $row   = $query->row();
 
         if ($row)
         {
-            // Get sub photos
             $this->db->from('assets');
             $this->db->where('photoset_id', $photoset_id);
-            $this->db->where('asset_id !=', $row->cover_photo_id);
             $this->db->order_by('asset_id', 'asc');
             $query = $this->db->get();
 
             $row->photos = $query->result();
+
+            $row->cover_photo = $this->get_photoset_cover($photoset_id);
+
+            $this->db->from('users');
+            $this->db->where('user_id', $row->user_id);
+            $query = $this->db->get();
+            $user = $query->row();
+
+            $row->display_name = $user->display_name;
         }
 
         return $row;
@@ -537,21 +541,21 @@ class Assets_model extends CI_Model
         $this->db->from('photosets');
         $this->db->where('user_id', $user_id);
         $query = $this->db->get();
-        $row   = $query->row();
+        $photosets   = $query->result();
 
-        if ($row)
+        foreach($photosets as $photoset)
         {
-            // Get sub photos
             $this->db->from('assets');
-            $this->db->where('photoset_id', $user_id);
-            $this->db->where('is_cover_photo', 0);
-            $this->db->order_by('asset_id', 'asc');
+            $this->db->where('photoset_id', $photoset->photoset_id);
+            $this->db->order_by('asset_id', 'desc');
             $query = $this->db->get();
 
-            $row->photos = $query->result();
+            $photoset->photos = $query->result();
+
+            $photoset->cover_photo = $this->get_photoset_cover($photoset->photoset_id);
         }
 
-        return $row;
+        return $photosets;
     }
 }
 

@@ -769,23 +769,42 @@ class Management_model extends CI_Model
 		// Loop through unique users
 		foreach ($users as $user_id)
 		{
-			// Get asset stats
+			// Get asset stats (non photosets)
 			$this->db->from('assets');
 			$this->db->where('approved', 0);
 			$this->db->where('user_id', $user_id);
+            $this->db->where('asset_type !=', 3);
 			$this->db->order_by('asset_id', 'asc');
 			$query  = $this->db->get();
 			$result = $query->result();
 
 			foreach ($result as $row)
-			{
-				$stats[$user_id][$row->asset_type]++;
+            {
+                $stats[$user_id][$row->asset_type]++;
 
 				if (!isset($stats[$user_id]['since']))
 				{
 					$stats[$user_id]['since'] = $row->asset_created;
 				}
 			}
+
+            // Get photoset stats
+            $this->db->from('photosets');
+            $this->db->where('approved', 0);
+            $this->db->where('user_id', $user_id);
+            $this->db->order_by('photoset_id', 'asc');
+            $query  = $this->db->get();
+            $result = $query->result();
+
+            foreach ($result as $row)
+            {
+                $stats[$user_id][3]++;
+
+                if (!isset($stats[$user_id]['since']))
+                {
+                    $stats[$user_id]['since'] = $row->asset_created;
+                }
+            }
 
 			// Assign user information
 			$this->db->from('users');
@@ -1038,17 +1057,29 @@ class Management_model extends CI_Model
 	 */
 	public function edit_asset($asset_id = 0)
 	{
-		// Get existing asset object for validation
-		$asset = $this->get_asset($asset_id);
+        if ($this->uri->segment(4) == 'photoset')
+        {
+            $asset = $this->assets_model->get_photoset($this->uri->segment(5));
 
-		// Data array of items to update from POST in database
-		$data = array(
-			'asset_title' => $this->input->post('asset_title'),
-			'asset_cost'  => $this->input->post('asset_cost'),
-			'deleted'     => (int) $this->input->post('deleted'),
-			'approved'    => (int) $this->input->post('approved'),
-			'asset_hd'    => (int) $this->input->post('asset_hd'),
-		);
+            $data = array(
+                'asset_title' => $this->input->post('asset_title'),
+                'asset_cost'  => $this->input->post('asset_cost'),
+                'deleted'     => (int) $this->input->post('deleted'),
+                'approved'    => (int) $this->input->post('approved'),
+            );
+        }
+        else
+        {
+            $asset = $this->get_asset($asset_id);
+
+            $data = array(
+                'asset_title' => $this->input->post('asset_title'),
+                'asset_cost'  => $this->input->post('asset_cost'),
+                'deleted'     => (int) $this->input->post('deleted'),
+                'approved'    => (int) $this->input->post('approved'),
+                'asset_hd'    => (int) $this->input->post('asset_hd'),
+            );
+        }
 
 		// Ensure only a public photo can be set as a default
 		if ($asset->asset_type == 1)
@@ -1072,25 +1103,35 @@ class Management_model extends CI_Model
 			$data['approved_on'] = time();
 		}
 
-		// Process database update
-		$this->db->where('asset_id', $asset_id);
-		$this->db->update('assets', $data);
+        if ($this->uri->segment(4) == 'photoset')
+        {
+            $this->db->where('photoset_id', $this->uri->segment(5));
+            $this->db->update('photosets', $data);
 
-		// If this is a photoset and being approved also approve subphotos
-		if ($asset->asset_type == 3 && $asset->approved == 0 && $data['approved'] == 1)
-		{
-			$subdata = array(
-				'approved'    => 1,
-				'approved_by' => $data['approved_by'],
-				'approved_on' => $data['approved_on'],
-			);
+            $subdata = array(
+                'approved'    => (int) $this->input->post('approved'),
+                'approved_by' => $data['approved_by'],
+                'approved_on' => $data['approved_on'],
+            );
 
-			$this->db->where('photoset_id', $asset_id);
-			$this->db->update('assets', $subdata);
-		}
+            $this->db->where('photoset_id', $this->uri->segment(5));
+            $this->db->update('assets', $subdata);
+        }
+        else
+        {
+            $this->db->where('asset_id', $asset_id);
+            $this->db->update('assets', $data);
+        }
 
 		// Get updated asset to return to controller
-		$asset = $this->get_asset($asset_id);
+        if ($this->uri->segment(4) == 'photoset')
+        {
+            $asset = $this->assets_model->get_photoset($this->uri->segment(5));
+        }
+        else
+        {
+            $asset = $this->get_asset($asset_id);
+        }
 
 		// Get tags
 		$tags = $this->input->post('tags');

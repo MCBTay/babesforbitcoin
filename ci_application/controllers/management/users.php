@@ -510,7 +510,6 @@ class Users extends CI_Controller
 		$data = array(
 			'user'     => $user,
 			'type'     => $asset_type,
-			//'assets'   => $this->management_model->user_assets($user_id, $asset_type),
 			'category' => $this->management_model->get_assets_types_title($asset_type),
 		);
 

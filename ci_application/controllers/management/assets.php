@@ -38,10 +38,8 @@ class Assets extends CI_Controller
 		// Get currently logged in user
 		$this->_user = $this->user_model->get_user();
 
-		// Load management model
+		$this->load->model('assets_model');
 		$this->load->model('management_model');
-
-		// Load aws model
 		$this->load->model('aws_model');
 	}
 
@@ -147,14 +145,20 @@ class Assets extends CI_Controller
         // Require valid user
         $this->management_model->require_valid_user();
 
-        $asset = $this->management_model->get_asset($asset_id);
+        if ($this->uri->segment(4) == 'photoset')
+        {
+            $asset = $this->assets_model->get_photoset($this->uri->segment(5));
+        }
+        else
+        {
+            $asset = $this->management_model->get_asset($asset_id);
+        }
 
-
-		if (!$asset)
+		/*if (!$asset);
 		{
 			// Invalid asset
 			redirect('management/assets');
-		}
+		}*/
 
 		// Data array to be used in views
 		$data = array();
