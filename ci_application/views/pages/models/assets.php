@@ -4,7 +4,7 @@
 		<div class="content-left content-left-small">
 			<div class="panel-photo">
 				<div class="watermark-wrap">
-					<a href="<?php echo base_url(); ?>models/public/<?php echo $model->user_id; ?>"><img alt="<?php echo isset($model->default) ? $model->default->filename : ''; ?>" src="<?php echo isset($model->default) ? CDN_URL . 'tall-' . strtolower($model->default->filename) : base_url() . 'assets/img/no-photo.png'; ?>" width="210" height="254"></a>
+					<a href="<?php echo base_url(); ?>models/profile/<?php echo $model->user_id; ?>"><img alt="<?php echo isset($model->default) ? $model->default->filename : ''; ?>" src="<?php echo isset($model->default) ? CDN_URL . 'tall-' . strtolower($model->default->filename) : base_url() . 'assets/img/no-photo.png'; ?>" width="210" height="254"></a>
 					<?php if ($model->user_hd): ?>
 						<div class="watermark-hd"></div>
 					<?php endif; ?>

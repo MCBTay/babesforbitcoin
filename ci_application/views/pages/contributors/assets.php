@@ -4,7 +4,7 @@
 		<div class="content-left content-left-small">
 			<div class="panel-photo">
 				<div class="watermark-wrap">
-					<a href="<?php echo base_url(); ?>contributors/public/<?php echo $contributor->user_id; ?>"><img alt="<?php echo isset($contributor->default) ? $contributor->default->filename : ''; ?>" src="<?php echo isset($contributor->default) ? CDN_URL . 'tall-' . strtolower($contributor->default->filename) : base_url() . 'assets/img/no-photo.png'; ?>" width="210" height="254"></a>
+					<a href="<?php echo base_url(); ?>contributors/profile/<?php echo $contributor->user_id; ?>"><img alt="<?php echo isset($contributor->default) ? $contributor->default->filename : ''; ?>" src="<?php echo isset($contributor->default) ? CDN_URL . 'tall-' . strtolower($contributor->default->filename) : base_url() . 'assets/img/no-photo.png'; ?>" width="210" height="254"></a>
 					<?php if ($contributor->user_hd): ?>
 						<div class="watermark-hd"></div>
 					<?php endif; ?>
