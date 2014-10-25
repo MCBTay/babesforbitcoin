@@ -972,7 +972,11 @@ class Cart_model extends CI_Model
 	{
 		$this->db->from('users_purchases');
 		$this->db->where('user_id', $this->_user->user_id);
-		$this->db->where('asset_id', $asset_id);
+        if ($this->uri->segment(3) == 'photoset') {
+            $this->db->where('photoset_id', $asset_id);
+        } else {
+            $this->db->where('asset_id', $asset_id);
+        }
 		$query = $this->db->get();
 		$row   = $query->row();
 

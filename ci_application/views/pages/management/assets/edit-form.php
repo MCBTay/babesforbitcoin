@@ -2,10 +2,48 @@
 		<form action="<?php echo base_url(); ?>management/assets/edit/<?php if ($asset->asset_id) { echo $asset->asset_id; } else { echo 'photoset/' . $asset->photoset_id; } ?>" class="form-horizontal" method="post" role="form">
 			<div class="panel panel-<?php echo $asset->approved ? 'success' : 'danger'; ?>">
 				<div class="panel-heading">
-					<strong>Asset</strong> # <?php if ($asset->asset_id) { echo $asset->asset_id; } else { echo $asset->photoset_id; } ?>
+                    <?php
+                        $strong_start = '<strong>';
+                        $strong_end = '</strong>';
+
+                        $id_label = $strong_start;
+                        $id_value = 0;
+                        $user_label = $strong_start;
+                        $type_label = $strong_start;
+
+                        if ($asset->asset_id)
+                        {
+                            $id_label .= 'Asset ';
+                            $id_value = $asset->asset_id;
+                        }
+                        else
+                        {
+                            $id_label .= 'Photoset ';
+                            $id_value = $asset->photoset_id;
+                        }
+
+                        $id_label .= $strong_end . " # " . $id_value;
+
+                        $user_label .= 'User' . $strong_end . ' # ' . $asset->user_id;
+                        $user_label .= ' (<a href="' . base_url() . 'management/users/gallery/' . $asset->user_id . '">';
+                        $user_label .= $asset->display_name . '</a>)';
+
+                        $type_label .= "Type " . $strong_end;
+                        if ($asset->asset_title_type)
+                        {
+                            $type_label .= $asset->asset_title_type;
+                        }
+                        else
+                        {
+                            $type_label .= "Photoset";
+                        }
+
+                        echo $id_label;
+                    ?>
 					 &nbsp;
-					<strong>User</strong> # <?php echo $asset->user_id; ?> (<a href="<?php echo base_url(); ?>management/users/gallery/<?php echo $asset->user_id; ?>"><?php echo $asset->display_name; ?></a>)
-					 &nbsp; <strong>Type</strong> <?php echo $asset->asset_type_title; ?>
+					<?php echo $user_label; ?>
+					 &nbsp;
+                    <?php echo $type_label; ?>
 				</div>
 				<div class="panel-body">
 					<div class="form-group<?php echo form_error('asset_title') != '' ? ' has-error' : ''; ?> has-feedback">

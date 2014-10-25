@@ -90,7 +90,9 @@
 			<tbody>
 				<?php foreach ($assets as $asset): ?>
 					<tr<?php echo $asset->approved ? '' : ' class="danger"'; ?>>
-						<td><?php echo $asset->asset_id; ?></td>
+						<td>
+                            <?php if ($asset->asset_id != 0) { echo $asset->asset_id; } else { echo $asset->photoset_id; } ?>
+                        </td>
 						<td>
 							<img alt="<?php echo $asset->display_name; ?>" src="<?php echo $asset->admin_thumb ? CDN_URL . $asset->admin_thumb : base_url() . 'assets/img/no-photo.png'; ?>" width="72" height="72">
 							<?php echo $asset->display_name; ?>
@@ -119,7 +121,7 @@
 							<?php endif; ?>
 						</td>
 						<td>
-							&bull; <a href="<?php echo base_url(); ?>management/assets/edit/<?php echo $asset->asset_id; ?>" class="edit">Edit</a>
+							&bull; <a href="<?php echo base_url(); ?>management/assets/edit/<?php if ($asset->asset_id != 0) { echo $asset->asset_id; } else { echo 'photoset/' . $asset->photoset_id; }  ?>" class="edit">Edit</a>
 						</td>
 					</tr>
 				<?php endforeach; ?>

@@ -163,7 +163,25 @@
 									<tr>
 										<td><small><?php echo $purchase->purchase_id; ?></small></td>
 										<td><small><a href="<?php echo base_url(); ?>management/users/view/<?php echo $purchase->user_id; ?>"><?php echo $purchase->display_name ? $purchase->display_name : 'User # ' . $purchase->user_id; ?></a></small></td>
-										<td><small><a href="<?php echo base_url(); ?>management/assets/edit/<?php echo $purchase->asset_id; ?>">Asset # <?php echo $purchase->asset_id; ?></a></small></td>
+										<td>
+                                            <small>
+                                                <?php
+                                                    $link_to_asset = '';
+                                                    $label_text = 'Asset #';
+                                                    if ($purchase->asset_id == 0)
+                                                    {
+                                                        $link_to_asset = 'photoset/' . $purchase->photoset_id;
+                                                        $label_text = 'Photoset #' . $purchase->photoset_id;;
+                                                    }
+                                                    else
+                                                    {
+                                                        $link_to_asset = $purchase->asset_id;
+                                                        $label_text = 'Asset #' . $purchase->asset_id;;
+                                                    }
+                                                ?>
+                                                <a href="<?php echo base_url(); ?>management/assets/edit/<?php echo $link_to_asset; ?>"><?php echo $label_text; ?></a>
+                                            </small>
+                                        </td>
 										<td>
 											<small>
 												<?php if ($purchase->purchase_price_btc > 0): ?>

@@ -566,7 +566,7 @@ class Models_model extends CI_Model
             // See if asset owned by user
             $this->db->from('users_purchases');
             $this->db->where('user_id', $this->_user->user_id);
-            $this->db->where('asset_id', $photoset->photoset_id);
+            $this->db->where('photoset_id', $photoset->photoset_id);
             $query = $this->db->get();
             $row   = $query->row();
             $photoset->owned = $row ? 1 : 0;
@@ -614,7 +614,7 @@ class Models_model extends CI_Model
                 // See if asset owned by user
                 $this->db->from('users_purchases');
                 $this->db->where('user_id', $this->_user->user_id);
-                $this->db->where('asset_id', $photoset->photoset_id);
+                $this->db->where('photoset_id', $photoset->photoset_id);
                 $query = $this->db->get();
                 $row   = $query->row();
                 $photoset->owned = $row ? 1 : 0;

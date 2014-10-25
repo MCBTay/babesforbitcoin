@@ -124,16 +124,17 @@ class Cart extends CI_Controller
 		if (!in_array($asset_id, $cart_assets))
 		{
 			// Make sure they don't already own this asset
-			if (!$this->cart_model->already_purchased($asset_id))
-			{
-				$cart_assets[] = $asset_id;
 
-				$this->session->set_userdata('cart_assets', $cart_assets);
-			}
-			else
-			{
-				redirect('cart/exists');
-			}
+            if (!$this->cart_model->already_purchased($asset_id))
+            {
+                $cart_assets[] = $asset_id;
+
+                $this->session->set_userdata('cart_assets', $cart_assets);
+            }
+            else
+            {
+                redirect('cart/exists');
+            }
 		}
 
 		redirect('cart');

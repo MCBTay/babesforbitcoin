@@ -61,7 +61,7 @@
                         <?php if ($asset->owned): ?>
                             <a class="button" href="<?php echo base_url(); ?>my-files/model/<?php echo $asset->user_id; ?><?php echo $asset->asset_type == 5 ? '/videos' : ''; ?>"><?php echo $asset->asset_type == 5 ? 'Open Video' : 'View Photos'; ?></a>
                         <?php else: ?>
-                            <a class="button" href="<?php echo base_url(); ?>cart/add/<?php if ($asset_type = 3) { echo $asset->photoset_id; } else { echo $asset->asset_id; } ?>">Buy</a>
+                            <a class="button" href="<?php echo base_url(); ?>cart/add/<?php if ($asset_type = 3) { echo 'photoset/' . $asset->photoset_id; } else { echo $asset->asset_id; } ?>">Buy</a>
                         <?php endif; ?>
                     </div>
                 <?php endif; ?>

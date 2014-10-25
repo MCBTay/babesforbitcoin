@@ -879,31 +879,50 @@ class Management_model extends CI_Model
 		// Calculate offset
 		$offset = $per_page * $page_num - $per_page;
 
+        // Setup filter options into proper variables
+        list($type, $default, $deleted, $approved) = explode('.', $filter);
+
 		// Setup SQL Join to get asset_type_title and display_name
 		$this->db->select('COUNT(`users_purchases`.`purchase_id`) AS purchased', FALSE);
-		$this->db->select('assets.*');
-		$this->db->select('assets_types.*');
-		$this->db->select('users.*');
-		$this->db->from('assets');
-		$this->db->join('assets_types', 'assets_types.asset_type_id = assets.asset_type');
-		$this->db->join('users', 'users.user_id = assets.user_id');
-		$this->db->join('users_purchases', 'users_purchases.asset_id = assets.asset_id AND users_purchases.purchase_price > 0', 'left');
-		$this->db->group_by('assets.asset_id');
+        $this->db->select('users.*');
 
-		// Setup filter options into proper variables
-		list($type, $default, $deleted, $approved) = explode('.', $filter);
+        if ($type == 3) {
+            $this->db->select('photosets.*');
+            $this->db->select('assets.filename');
+            $this->db->from('photosets');
+            $this->db->join('users', 'users.user_id = photosets.user_id');
+            $this->db->join('assets', 'assets.asset_id = photosets.cover_photo_id');
+        } else {
+            $this->db->select('assets.*');
+            $this->db->select('assets_types.*');
+            $this->db->from('assets');
+            $this->db->join('assets_types', 'assets_types.asset_type_id = assets.asset_type');
+            $this->db->join('users', 'users.user_id = assets.user_id');
+        }
+
+
+
+        if ($type == 3) {
+            $this->db->join('users_purchases', 'users_purchases.photoset_id = photosets.photoset_id AND users_purchases.purchase_price > 0', 'left');
+            $this->db->group_by('photosets.photoset_id');
+        } else {
+            $this->db->join('users_purchases', 'users_purchases.asset_id = assets.asset_id AND users_purchases.purchase_price > 0', 'left');
+            $this->db->group_by('assets.asset_id');
+        }
 
 		// If $type is set, limit to only those asset_types
-		if ($type > 0)
+		if ($type > 0 && $type != 3)
 		{
 			$this->db->where('asset_type', $type);
 		}
 
 		// If $type isn't photoset_photo (4), hide them
-		if ($type != 4)
+		if ($type != 4  && $type != 3)
 		{
 			$this->db->where('asset_type !=', 4);
 		}
+
+        if ($type == 3)
 
 		// If $default is set, limit to only those assets
 		if ($default === '0' || $default === '1')
@@ -923,7 +942,7 @@ class Management_model extends CI_Model
 			$this->db->where('approved', $approved);
 		}
 
-		if ($sort == 'asset_id')
+		if ($sort == 'asset_id'  || $type != 3)
 		{
 			// Sort by chosen column and direction
 			$this->db->order_by('assets.asset_id', $dir);
@@ -939,11 +958,19 @@ class Management_model extends CI_Model
 		{
 			if ($sort == 'approved' && $dir == 'asc')
 			{
-				$this->db->order_by('assets.asset_id', 'asc');
+                if ($type != 3) {
+                    $this->db->order_by('assets.asset_id', 'asc');
+                } else {
+                    $this->db->order_by('photosets.photoset_id', 'asc');
+                }
 			}
 			else
 			{
-				$this->db->order_by('assets.asset_id', 'desc');
+                if ($type != 3) {
+                    $this->db->order_by('assets.asset_id', 'desc');
+                } else {
+                    $this->db->order_by('photosets.photoset_id', 'desc');
+                }
 			}
 		}
 
@@ -955,6 +982,9 @@ class Management_model extends CI_Model
 		// Let's add moderator names to approved entries
 		foreach ($result as $key => $row)
 		{
+            if ($type == 3)
+                $result[$key]->asset_type_title = 'Photoset';
+
 			if ($row->approved_by > 0)
 			{
 				$this->db->select('display_name');
@@ -1004,6 +1034,8 @@ class Management_model extends CI_Model
 		{
 			$row->approved_by_name = '';
 		}
+
+        $row->asset_title_type = $this->get_assets_types_title($row->asset_type);
 
 		// Setup initial subphotos array
 		$row->subphotos = array();
@@ -1072,6 +1104,8 @@ class Management_model extends CI_Model
 
 		// Set empty tags variable
 		$row->tags = '';
+
+
 
 		// Add in existing tags
 		$this->db->from('assets_tags');
@@ -1329,11 +1363,15 @@ class Management_model extends CI_Model
 		// If $type is set, limit to only those asset_types
 		if ($type > 0)
 		{
-			$this->db->where('asset_type', $type);
+            if ($type != 3) {
+                $this->db->where('asset_type', $type);
+            }
 		}
 
+
+
 		// If $type isn't photoset_photo (4), hide them
-		if ($type != 4)
+		if ($type != 4 && $type != 3)
 		{
 			$this->db->where('asset_type !=', 4);
 		}
@@ -1356,7 +1394,11 @@ class Management_model extends CI_Model
 			$this->db->where('approved', $approved);
 		}
 
-		$total = $this->db->count_all_results('assets');
+        if ($type != 3) {
+            $total = $this->db->count_all_results('assets');
+        } else {
+            $total = $this->db->count_all_results('photosets');
+        }
 
 		return $total;
 	}

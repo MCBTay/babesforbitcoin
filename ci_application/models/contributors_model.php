@@ -568,6 +568,28 @@ class Contributors_model extends CI_Model
 			}
 		}
 
+        $this->db->from('users_purchases');
+        $this->db->join('photosets', 'photosets.asset_id = users_purchases.photoset_id');
+        $this->db->where('users_purchases.user_id', $this->_user->user_id);
+        $this->db->where('photosets.user_id', $model_id);
+        $this->db->order_by('users_purchases.purchase_created', 'desc');
+        $query  = $this->db->get();
+        $photosets = $query->result();
+
+        foreach ($photosets as $photoset)
+        {
+            $total++;
+
+            // If photoset
+            if ($asset->asset_type == 3)
+            {
+                // Count sub photos as well
+                $photos = $this->get_purchased_photosets_photos($asset->asset_id);
+
+                $total += count($photos);
+            }
+        }
+
 		return $total;
 	}
 

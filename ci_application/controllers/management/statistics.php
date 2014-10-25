@@ -243,7 +243,14 @@ class Statistics extends CI_Controller
 		{
 			$data .= $this->csv_format($purchase->purchase_id);
 			$data .= $this->csv_format($purchase->display_name ? $purchase->display_name : 'User # ' . $purchase->user_id);
-			$data .= $this->csv_format($purchase->asset_id);
+			if ($purchase->asset_id != 0)
+            {
+                $data .= $this->csv_format($purchase->asset_id);
+            }
+            else
+            {
+                $data .= $this->csv_format($purchase->photoset_id);
+            }
 			$data .= $this->csv_format($purchase->purchase_price_btc > 0 ? 'B' . round($purchase->purchase_price_btc, 6) : '$' . number_format($purchase->purchase_price_usd, 2));
 			$data .= $this->csv_format('$' . number_format($purchase->site_usd, 2));
 			$data .= $this->csv_format($purchase->cb_code);
