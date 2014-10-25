@@ -364,7 +364,7 @@ class Models_model extends CI_Model
 				$asset->owned = $row ? 1 : 0;
 
 				// Add in the amount of sub photos if photoset
-				if ($asset->asset_type == 3 || $asset->asset_type == 4)
+				if ($asset->asset_type == 4)
 				{
 					$this->db->from('assets');
 					$this->db->where('photoset_id', $asset->asset_id);

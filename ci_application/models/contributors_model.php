@@ -580,14 +580,10 @@ class Contributors_model extends CI_Model
         {
             $total++;
 
-            // If photoset
-            if ($asset->asset_type == 3)
-            {
-                // Count sub photos as well
-                $photos = $this->get_purchased_photosets_photos($asset->asset_id);
+            // Count sub photos as well
+            $photos = $this->get_purchased_photosets_photos($photoset->photoset_id);
 
-                $total += count($photos);
-            }
+            $total += count($photos);
         }
 
 		return $total;

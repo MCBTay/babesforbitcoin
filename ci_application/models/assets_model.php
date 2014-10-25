@@ -414,7 +414,7 @@ class Assets_model extends CI_Model
 
 		if ($row)
 		{
-			if ($row->asset_type == 3 || $row->asset_type == 4)
+			if ($row->asset_type == 4)
 			{
 				// Get sub photos
 				$this->db->from('assets');

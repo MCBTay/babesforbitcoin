@@ -1040,7 +1040,7 @@ class Management_model extends CI_Model
 		// Setup initial subphotos array
 		$row->subphotos = array();
 
-        if ($row->asset_type == 3 || $row->asset_type == 4)
+        if ($row->asset_type == 4)
         {
             $row->photoset = $this->assets_model->get_photoset($row->photoset_id);
 

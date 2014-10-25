@@ -55,7 +55,7 @@
 										&nbsp;
 										<a href="<?php echo base_url(); ?>management/users/gallery/<?php echo $asset->user_id; ?>/approve/<?php echo $asset->asset_id; ?>" class="btn btn-success" role="button">Approve</a>
 									<?php endif; ?>
-									<?php if ($asset->asset_type == 3 || $asset->asset_type == 4): ?>
+									<?php if ($asset->asset_type == 4): ?>
 										&nbsp;
 										<a href="<?php echo base_url(); ?>management/users/gallery/<?php echo $asset->user_id; ?>/add/4/<?php echo $asset->asset_id; ?>" class="btn btn-success" role="button">Add</a>
 									<?php endif; ?>
