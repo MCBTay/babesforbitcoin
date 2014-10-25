@@ -36,23 +36,6 @@
 										</span>
 									<?php endif; ?>
 								</p>
-								<div class="asset-upload">
-									<label for="cover_photo">Cover Photo:</label>
-									<div class="upload-progress"><div class="progress-bar"></div></div>
-									<?php if (isset($cover_photo)): ?>
-										<div class="upload-preview-static"><?php echo $cover_photo; ?></div>
-									<?php elseif (isset($asset)): ?>
-										<div class="upload-preview-static">
-											<img src="<?php echo CDN_URL . $asset->filename; ?>" width="536">
-										</div>
-									<?php else: ?>
-										<div class="upload-preview-static"></div>
-										<div class="button-file">
-											<span>Upload New Photo</span>
-											<input class="asset-upload-video-photo" id="cover_photo" name="cover_photo" type="file">
-										</div>
-									<?php endif; ?>
-								</div>
 								<div class="asset-upload" style="margin-top: 15px;">
 									<label for="video">Video:</label>
 									<?php if (isset($video)): ?>

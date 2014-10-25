@@ -633,7 +633,7 @@ class Upload extends CI_Controller
 	{
 		// Set the upload config
 		$config['upload_path']   = './assets/uploads/';
-		$config['allowed_types'] = 'mpeg|mpg|mp4|m4v|f4v|webm|flv|ogv|wmv';
+		$config['allowed_types'] = 'mpeg|mpg|mp4|m4v|webm|wmv|3gp|mov';
 		$config['max_size']      = '2097152'; // 2GB (in kilobytes)
 		$config['encrypt_name']  = TRUE;
 
