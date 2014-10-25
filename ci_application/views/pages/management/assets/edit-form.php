@@ -114,6 +114,12 @@
 							<button type="submit" class="btn btn-sm btn-<?php echo $asset->approved ? 'danger' : 'success'; ?>" name="approved" value="<?php echo $asset->approved ? 0 : 1; ?>"><?php echo $asset->approved ? 'Unapprove Asset' : 'Approve Asset'; ?></button>
 							<input type="hidden" name="asset_hd" value="<?php echo $asset->asset_hd; ?>">
 							<button type="submit" class="btn btn-sm btn-<?php echo $asset->asset_hd ? 'danger' : 'success'; ?>" name="asset_hd" value="<?php echo $asset->asset_hd ? 0 : 1; ?>"><?php echo $asset->asset_hd ? 'Unset as HD' : 'Set as HD'; ?></button>
+
+                            <?php if ($asset->photoset && $asset->asset_id != $asset->photoset->cover_photo_id): ?>
+                                <input type="hidden" name="asset_cover_photo" value="0">
+                                <button type="submit" class="btn btn-sm btn-success" name="asset_cover_photo" value="1">Set as Cover Photo</button>
+                            <?php endif; ?>
+
 							<?php if ($asset->asset_type == 5): ?>
 								<a href="<?php echo CDN_URL . $asset->video; ?>"><button class="btn btn-sm btn-default" type="button">Download</button></a>
 							<?php endif; ?>

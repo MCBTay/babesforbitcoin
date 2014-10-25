@@ -1040,25 +1040,30 @@ class Management_model extends CI_Model
 		// Setup initial subphotos array
 		$row->subphotos = array();
 
-		// Let's get all subphotos for photosets
-		if ($row->is_cover_photo && ($row->asset_type == 3 || $row->asset_type == 4))
-		{
-			// Get asset_id's to re-use in this recursive function
-			$this->db->select('asset_id');
-			$this->db->from('assets');
-			$this->db->where('photoset_id', $asset_id);
-            $this->db->where('asset_id !=', $row->asset_id);
-			$this->db->order_by('approved', 'asc');
-			$this->db->order_by('asset_id', 'desc');
-			$query  = $this->db->get();
-			$result = $query->result();
+        if ($row->asset_type == 3 || $row->asset_type == 4)
+        {
+            $row->photoset = $this->assets_model->get_photoset($row->photoset_id);
 
-			// Cycle through result getting each photo
-			foreach ($result as $sub)
-			{
-				$row->subphotos[] = $this->get_asset($sub->asset_id);
-			}
-		}
+            // Let's get all subphotos for photosets
+            if ($row->asset_id == $row->photoset->cover_photo_id)
+            {
+                // Get asset_id's to re-use in this recursive function
+                $this->db->select('asset_id');
+                $this->db->from('assets');
+                $this->db->where('photoset_id', $asset_id);
+                $this->db->where('asset_id !=', $row->asset_id);
+                $this->db->order_by('approved', 'asc');
+                $this->db->order_by('asset_id', 'desc');
+                $query  = $this->db->get();
+                $result = $query->result();
+
+                // Cycle through result getting each photo
+                foreach ($result as $sub)
+                {
+                    $row->subphotos[] = $this->get_asset($sub->asset_id);
+                }
+            }
+        }
 
 		// Let's add mimetype for videos
 		if ($row->asset_type == 5)
@@ -1202,6 +1207,15 @@ class Management_model extends CI_Model
         {
             $this->db->where('asset_id', $asset_id);
             $this->db->update('assets', $data);
+
+            if ((int)$this->input->post('asset_cover_photo') == 1)
+            {
+                $this->db->set('cover_photo_id', $asset_id);
+                $this->db->where('photoset_id', $asset->photoset_id);
+                $this->db->update('photosets');
+
+                redirect('/management/assets/edit/photoset/' . $asset->photoset_id);
+            }
         }
 
 		// Get updated asset to return to controller
