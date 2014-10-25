@@ -112,8 +112,8 @@ class Cart extends CI_Controller
 	public function add($asset_id)
 	{
 		// Get current items in cart
-		$cart_assets = $this->session->userdata('cart_assets');
 
+		$cart_assets = $this->session->userdata('cart_assets');
 		// If empty, create array
 		if (empty($cart_assets))
 		{
@@ -124,8 +124,14 @@ class Cart extends CI_Controller
 		if (!in_array($asset_id, $cart_assets))
 		{
 			// Make sure they don't already own this asset
+            $is_photoset = $this->uri->segment(3) == photoset ? true : false;
 
-            if (!$this->cart_model->already_purchased($asset_id))
+            if ($is_photoset)
+            {
+                $asset_id = $this->uri->segment(4);
+            }
+
+            if (!$this->cart_model->already_purchased($asset_id, $is_photoset))
             {
                 $cart_assets[] = $asset_id;
 

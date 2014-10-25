@@ -196,7 +196,7 @@ class Models extends CI_Controller
 	 */
 	public function asset($asset_id)
 	{
-		if (!$this->cart_model->already_purchased($asset_id) && $this->_user->user_type < 3)
+		if (!$this->cart_model->already_purchased($asset_id, false) && $this->_user->user_type < 3)
 		{
 			// Asset not owned
 			redirect();

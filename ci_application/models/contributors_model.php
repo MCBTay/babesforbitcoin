@@ -293,7 +293,6 @@ class Contributors_model extends CI_Model
 		}
 		else
 		{
-			// Get private photos
 			$this->db->from('users_purchases');
 			$this->db->join('assets', 'assets.asset_id = users_purchases.asset_id');
 			$this->db->where('assets.asset_type', 2);
@@ -329,9 +328,8 @@ class Contributors_model extends CI_Model
 		if ($this->_user->user_type >= 3)
 		{
 			// Get photosets
-			$this->db->from('assets');
-			$this->db->where('asset_type', 3);
-			$this->db->order_by('asset_id', 'desc');
+			$this->db->from('photosets');
+			$this->db->order_by('photoset_id', 'desc');
 			$query  = $this->db->get();
 			$assets = $query->result();
 
@@ -355,7 +353,7 @@ class Contributors_model extends CI_Model
 		{
 			// Get photosets
 			$this->db->from('users_purchases');
-			$this->db->join('photosets', 'photosets.photoset_id = users_purchases.asset_id');
+			$this->db->join('photosets', 'photosets.photoset_id = users_purchases.photoset_id');
 			$this->db->where('users_purchases.user_id', $this->_user->user_id);
 			if ($model_id)
 			{
@@ -569,7 +567,7 @@ class Contributors_model extends CI_Model
 		}
 
         $this->db->from('users_purchases');
-        $this->db->join('photosets', 'photosets.asset_id = users_purchases.photoset_id');
+        $this->db->join('photosets', 'photosets.photoset_id = users_purchases.photoset_id');
         $this->db->where('users_purchases.user_id', $this->_user->user_id);
         $this->db->where('photosets.user_id', $model_id);
         $this->db->order_by('users_purchases.purchase_created', 'desc');

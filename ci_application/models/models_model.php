@@ -282,8 +282,19 @@ class Models_model extends CI_Model
 				}
 			}
 
+            $this->db->from('photosets');
+            $this->db->where('user_id', $model_id);
+            $this->db->where('deleted', 0);
+            if (!$row->trusted)
+            {
+                $this->db->where('approved', 1);
+            }
+            $query  = $this->db->get();
+            $photosets = $query->result();
+            $row->assets[3] = count($photosets);
+
 			// Set number of photos and videos based on above
-			$row->num_photos = $row->assets[1] + $row->assets[2] + $row->assets[3] + $row->assets[4];
+			$row->num_photos = $row->assets[1] + $row->assets[2] + $row->assets[4];
 			$row->num_videos = $row->assets[5];
 
 			// If no default, try first public photo instead

@@ -200,18 +200,23 @@ class Cart_model extends CI_Model
 					// Data for users purchases table
                     $asset_id = $asset->asset_id;
 
-                    if ($asset->photoset_id != 0)
-                        $asset_id = $asset->photoset_id;
+                    $data = array(
+                        'user_id'            => $this->_user->user_id,
+                        'purchase_price'     => $asset->asset_cost,
+                        'purchase_price_usd' => $asset->asset_cost,
+                        'model_usd'          => $model_usd,
+                        'site_usd'           => $site_usd,
+                        'purchase_created'   => time(),
+                    );
 
-					$data = array(
-						'asset_id'           => $asset_id,
-						'user_id'            => $this->_user->user_id,
-						'purchase_price'     => $asset->asset_cost,
-						'purchase_price_usd' => $asset->asset_cost,
-						'model_usd'          => $model_usd,
-						'site_usd'           => $site_usd,
-						'purchase_created'   => time(),
-					);
+                    if ($asset->photoset_id != 0)
+                    {
+                        $data['photoset_id'] = $asset->photoset_id;
+                    }
+                    else
+                    {
+                        $data['asset_id'] = $asset->asset_id;
+                    }
 
 					// Insert purchase into users purchases table
 					$this->db->insert('users_purchases', $data);
@@ -968,11 +973,12 @@ class Cart_model extends CI_Model
 	 * @access public
 	 * @return n/a
 	 */
-	public function already_purchased($asset_id)
+	public function already_purchased($asset_id, $is_photoset)
 	{
 		$this->db->from('users_purchases');
 		$this->db->where('user_id', $this->_user->user_id);
-        if ($this->uri->segment(3) == 'photoset') {
+
+        if ($is_photoset) {
             $this->db->where('photoset_id', $asset_id);
         } else {
             $this->db->where('asset_id', $asset_id);
