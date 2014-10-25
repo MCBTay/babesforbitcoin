@@ -7,9 +7,8 @@
 		<div class="content-right copy">
 			<?php if ($this->_user->user_type == 2 && !$this->_user->user_approved): ?>
 				<div class="alert alert-danger">
-					<p style="margin-top: 0;">In order to comply with the federal <a href="http://www.informationlaw.com/blog/What-is-18-USC-2257-and-How-Does-it-Affect-Me.htm" target="_blank">2257 regulations</a> we require a government issued ID.  You may redact (black out) any information other than Name, Date of Birth, Photo, and ID number. All information given will remain private and is only used for verification purposes, we will never sell your information.</p>
-					<p>If you do not wish to show your face to the public, please include a fansign with BabesForBitcoin written on it. This photo must show your face, but will not be shared publicly.</p>
-					<p style="margin-bottom: 0;"><a href="<?php echo base_url(); ?>upload/private">Please click here to upload</a></p>
+                    <p style="margin-top: 0;">Thank you for signing up! You must become a verified model before you can begin selling or messaging contributors. To get verified, please send a copy of a government issued ID to <a href="mailto:processing@babesforbitcoin.com">processing@babesforbitcoin.com</a>. This is to verify that you are a real model, have the rights to the content you upload, and are over 18.</p>
+                    <p>ID verification is a legal requirement for all sites which host adult content, this is due to the <a href="http://www.informationlaw.com/blog/What-is-18-USC-2257-and-How-Does-it-Affect-Me.htm" target="_blank">2257 statutes</a>  which you can read about by clicking on the link above. We are bound by our <a href="<?php echo base_url(); ?>content/privacy" target="_blank">privacy policy</a> to keep your identity safe and secure. Please contact <a href="mailto:dduckworth@babesforbitcoin.com">dduckworth@babesforbitcoin.com</a> if you have any questions or concerns and thanks for being a model at BFB!
 				</div>
 			<?php endif; ?>
 			<?php if (!$messages): ?>
