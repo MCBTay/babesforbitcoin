@@ -84,7 +84,7 @@
 						<?php endif; ?>
 						<?php if ($asset->video): ?>
 							<div class="col-sm-12" style="padding-top: 15px;">
-								<video controls="controls" <?php echo $asset->filename ? 'poster="' . CDN_URL . $asset->filename . '"' : ''; ?> preload="none" style="display: block; width: 100%; max-width: 100%; height: auto;">
+								<video controls="controls" <?php echo $asset->filename ? 'poster="' . CDN_URL . $asset->filename . '"' : ''; ?> preload="none" height="600" width="100%" >
 									<source src="<?php echo CDN_URL . $asset->video; ?>" type="<?php echo $asset->mimetype; ?>">
 									<!-- Flash fallback for non-HTML5 browsers without JavaScript -->
 									<object data="<?php echo base_url(); ?>assets/js/mediaelement/flashmediaelement.swf" style="display: block; width: 100%; max-width: 100%; height: auto;" type="application/x-shockwave-flash">

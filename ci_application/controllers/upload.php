@@ -336,6 +336,7 @@ class Upload extends CI_Controller
 			$this->form_validation->set_rules('uploaded_video', 'Video',       'trim|required|xss_clean');
 		}
 
+
 		if ($this->form_validation->run() == TRUE)
 		{
 			// Add asset to the database
@@ -654,6 +655,21 @@ class Upload extends CI_Controller
 
 			// Capture image from video for cover photo
 			shell_exec(BIN_PATH . 'ffmpeg -i "' . $video['full_path'] . '" -an -ss 1.001 -y -f mjpeg "' . $video['file_path'] . $thumb . '" 2>&1');
+
+            if ($video['file_ext'] == '.wmv')
+            {
+                $original_file = $video['full_path'];
+
+                $new_file = $video['file_path'] . $video['raw_name'] . '.mp4';
+                shell_exec(BIN_PATH . 'ffmpeg -i "' . $video['full_path'] . '" -c:v libx264 -crf 23 -c:a libvo_aacenc -q:a 100 "' . $new_file . '"');
+
+                $video['file_name'] = $video['raw_name'] . '.mp4';
+                $video['full_path'] = $new_file;
+                $video['file_ext'] = '.mp4';
+
+                //delete original file
+                unlink($original_file);
+            }
 
 			// Get the new image width and height
 			list($width, $height) = @getimagesize($video['file_path'] . $thumb);

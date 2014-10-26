@@ -1072,7 +1072,7 @@ class Management_model extends CI_Model
 			$row->mimetype = '';
 
 			// Separate the filename into an array
-			$filename = explode('.', $row->filename);
+			$filename = explode('.', $row->video);
 
 			// Pop the last item out of array (file extension)
 			$extension = array_pop($filename);
@@ -1098,7 +1098,7 @@ class Management_model extends CI_Model
 				break;
 
 				case 'wmv':
-					$row->mimetype = 'video/x-ms-wmv';
+					$row->mimetype = 'video/wmv';
 				break;
 
 				default:

@@ -352,14 +352,6 @@ class Assets_model extends CI_Model
 				$mimetype = 'video/x-ms-wmv';
 			    break;
 
-            case '3gp':
-                $mimetype = 'video/3gpp';
-                break;
-
-            case 'mov':
-                $mimetype = 'video/quicktime';
-                break;
-
             case 'mp4':
 			default:
                 $mimetype = 'video/mp4';

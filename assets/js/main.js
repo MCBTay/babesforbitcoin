@@ -556,6 +556,9 @@ $(function() {
 		}
 	});
 
+    // Convert video and audio tags to MediaElement.js
+    $('video, audio').mediaelementplayer(/* Options */);
+
 });
 
 function showCoords(c) {

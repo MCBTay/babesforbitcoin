@@ -154,9 +154,18 @@
 					<?php foreach ($videos as $asset): ?>
 						<?php if ($asset->approved || !isset($send)): ?>
 							<div class="panel-photo">
-								<a href="<?php echo base_url(); ?>upload/video/<?php echo $asset->asset_id; ?>">
+								<a class="open-fancybox" href="#video<?php echo $asset->asset_id; ?>">
 									<div id="video<?php echo $asset->asset_id; ?>" style="display: none;">
-                                        <img class="img-responsive" src="<?php if ($asset->filename) echo CDN_URL . $asset->filename; ?>">
+										<video controls="controls" height="720" width="1080">
+											<source src="<?php echo CDN_URL . $asset->video; ?>" type="<?php echo $asset->mimetype; ?>">
+											<!-- Flash fallback for non-HTML5 browsers without JavaScript -->
+											<object data="<?php echo base_url(); ?>assets/js/mediaelement/flashmediaelement.swf" style="display: block; width: 100%; max-width: 100%; height: auto;" type="application/x-shockwave-flash">
+												<param name="movie" value="<?php echo base_url(); ?>assets/js/mediaelement/flashmediaelement.swf">
+												<param name="flashvars" value="controls=true&amp;file=<?php echo urlencode(CDN_URL . $asset->video); ?>">
+												<!-- Image as a last resort -->
+												<img class="img-responsive" src="<?php echo CDN_URL . $asset->filename; ?>" title="No video playback capabilities">
+											</object>
+										</video>
 									</div>
 									<div class="watermark-wrap">
 										<img alt="<?php echo $asset->asset_title; ?>" src="<?php echo !empty($asset->filename) ? CDN_URL . 'sml-' . strtolower($asset->filename) : base_url() . 'assets/img/no-photo.png'; ?>" width="170" height="170">
